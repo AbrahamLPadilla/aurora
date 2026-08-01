@@ -3,15 +3,15 @@
 ========================================================= */
 
 :root {
-    --background: #030408;
-    --background-soft: #080d18;
+    --background: #02040a;
+    --background-soft: #081225;
 
     --text-primary: #f5f5f7;
-    --text-secondary: rgba(245, 245, 247, 0.68);
-    --text-muted: rgba(245, 245, 247, 0.38);
+    --text-secondary: rgba(245, 245, 247, 0.72);
+    --text-muted: rgba(245, 245, 247, 0.42);
 
-    --accent: #9bbcff;
-    --accent-soft: rgba(155, 188, 255, 0.2);
+    --accent: #a9c7ff;
+    --accent-soft: rgba(169, 199, 255, 0.22);
 
     --content-width: 1120px;
     --narrow-width: 760px;
@@ -65,7 +65,7 @@ button {
 }
 
 /* =========================================================
-   BACKGROUND
+   FONDO NOCTURNO
 ========================================================= */
 
 .background {
@@ -79,60 +79,177 @@ button {
     background:
         radial-gradient(
             circle at 50% 0%,
-            rgba(45, 77, 145, 0.25),
-            transparent 38%
+            rgba(45, 77, 145, 0.48),
+            transparent 42%
+        ),
+        radial-gradient(
+            circle at 15% 60%,
+            rgba(40, 76, 145, 0.18),
+            transparent 42%
         ),
         linear-gradient(
             180deg,
-            #030408 0%,
-            #070b13 48%,
-            #030408 100%
+            #02040a 0%,
+            #081225 48%,
+            #02040a 100%
         );
 }
 
+/* =========================================================
+   ESTRELLAS
+========================================================= */
+
 .stars {
     position: absolute;
-    inset: 0;
+    inset: -400px 0 0;
+
+    width: 100%;
+    height: calc(100% + 800px);
+
     background-repeat: repeat;
+    will-change: transform;
 }
+
+/* Estrellas pequeñas y abundantes */
 
 .stars-small {
-    opacity: 0.45;
+    opacity: 0.85;
+
     background-image:
-        radial-gradient(circle, rgba(255,255,255,.75) 1px, transparent 1.5px),
-        radial-gradient(circle, rgba(155,188,255,.55) 1px, transparent 1.5px);
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.95) 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle,
+            rgba(169, 199, 255, 0.85) 1px,
+            transparent 1.6px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.7) 0.8px,
+            transparent 1.4px
+        );
 
     background-size:
-        150px 150px,
-        230px 230px;
+        125px 125px,
+        190px 190px,
+        85px 85px;
 
     background-position:
-        20px 40px,
-        80px 110px;
+        18px 30px,
+        75px 105px,
+        42px 68px;
 
-    animation: starsMove 55s linear infinite;
+    animation: starsMoveSmall 50s linear infinite;
 }
+
+/* Estrellas medianas */
 
 .stars-medium {
-    opacity: 0.24;
+    opacity: 0.58;
+
     background-image:
-        radial-gradient(circle, rgba(255,255,255,.8) 1.5px, transparent 2px);
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.95) 1.5px,
+            transparent 2.2px
+        ),
+        radial-gradient(
+            circle,
+            rgba(169, 199, 255, 0.82) 1.3px,
+            transparent 2px
+        );
 
-    background-size: 330px 330px;
-    background-position: 120px 80px;
+    background-size:
+        280px 280px,
+        370px 370px;
 
-    animation: starsMove 85s linear infinite reverse;
+    background-position:
+        110px 70px,
+        30px 180px;
+
+    animation: starsMoveMedium 78s linear infinite reverse;
 }
 
-@keyframes starsMove {
+/* Estrellas grandes y escasas */
+
+.stars-large {
+    opacity: 0.48;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 1) 2px,
+            transparent 3px
+        ),
+        radial-gradient(
+            circle,
+            rgba(177, 207, 255, 0.9) 1.8px,
+            transparent 3px
+        );
+
+    background-size:
+        520px 520px,
+        680px 680px;
+
+    background-position:
+        170px 120px,
+        40px 360px;
+
+    filter: drop-shadow(
+        0 0 5px rgba(169, 199, 255, 0.75)
+    );
+
+    animation:
+        starsMoveLarge 110s linear infinite,
+        starsTwinkle 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes starsMoveSmall {
     from {
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
 
     to {
-        transform: translateY(-330px);
+        transform: translate3d(0, -350px, 0);
     }
 }
+
+@keyframes starsMoveMedium {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, -450px, 0);
+    }
+}
+
+@keyframes starsMoveLarge {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, -540px, 0);
+    }
+}
+
+@keyframes starsTwinkle {
+    from {
+        opacity: 0.28;
+    }
+
+    to {
+        opacity: 0.6;
+    }
+}
+
+/* =========================================================
+   RESPLANDORES DEL FONDO
+========================================================= */
 
 .background-glow {
     position: absolute;
@@ -144,7 +261,7 @@ button {
 
     border-radius: 50%;
     filter: blur(130px);
-    opacity: 0.14;
+    opacity: 0.18;
 }
 
 .glow-one {
@@ -156,7 +273,7 @@ button {
 .glow-two {
     right: -40%;
     bottom: -40%;
-    background: #6e56cf;
+    background: #765cff;
 }
 
 .background-vignette {
@@ -166,13 +283,13 @@ button {
     background:
         radial-gradient(
             circle at center,
-            transparent 35%,
-            rgba(0, 0, 0, 0.58) 100%
+            transparent 28%,
+            rgba(0, 0, 0, 0.52) 100%
         );
 }
 
 /* =========================================================
-   PROGRESS
+   BARRA DE PROGRESO
 ========================================================= */
 
 .progress-track {
@@ -192,13 +309,15 @@ button {
     width: 0;
     height: 2px;
 
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.4),
-        var(--accent)
-    );
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.45),
+            var(--accent)
+        );
 
-    box-shadow: 0 0 20px rgba(155, 188, 255, 0.6);
+    box-shadow:
+        0 0 20px rgba(169, 199, 255, 0.7);
 }
 
 /* =========================================================
@@ -221,23 +340,14 @@ button {
         calc(30px + var(--safe-bottom));
 
     overflow: hidden;
-    background: #000;
-}
-
-.intro::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    opacity: 0;
 
     background:
         radial-gradient(
             circle at 50% 45%,
-            rgba(50, 80, 145, 0.2),
+            rgba(38, 65, 122, 0.17),
             transparent 42%
-        );
+        ),
+        #000;
 }
 
 .intro-content {
@@ -265,7 +375,8 @@ button {
     font-size: clamp(3.5rem, 14vw, 6rem);
     line-height: 1;
 
-    text-shadow: 0 0 40px rgba(255, 255, 255, 0.18);
+    text-shadow:
+        0 0 35px rgba(255, 255, 255, 0.18);
 }
 
 .intro-story,
@@ -275,10 +386,6 @@ button {
     font-weight: 600;
     line-height: 1.06;
     letter-spacing: -0.05em;
-}
-
-.intro-final-message {
-    color: var(--text-primary);
 }
 
 .intro-instruction {
@@ -299,7 +406,7 @@ button {
     width: 28px;
     height: 46px;
 
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 999px;
 }
 
@@ -312,7 +419,7 @@ button {
     height: 8px;
 
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.9);
 
     transform: translateX(-50%);
 }
@@ -328,7 +435,7 @@ button {
     border-radius: 999px;
 
     background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.48);
+    color: rgba(255, 255, 255, 0.5);
 
     font-size: 0.78rem;
     font-weight: 500;
@@ -340,7 +447,7 @@ button {
 }
 
 /* =========================================================
-   SCENES
+   ESCENAS
 ========================================================= */
 
 #experience {
@@ -393,12 +500,12 @@ button {
     width: min(75vw, 900px);
     aspect-ratio: 1;
 
-    border: 1px solid rgba(155, 188, 255, 0.08);
+    border: 1px solid rgba(169, 199, 255, 0.12);
     border-radius: 50%;
 
     box-shadow:
-        0 0 100px rgba(60, 100, 190, 0.08),
-        inset 0 0 100px rgba(60, 100, 190, 0.03);
+        0 0 120px rgba(60, 100, 190, 0.13),
+        inset 0 0 100px rgba(60, 100, 190, 0.05);
 
     transform: translateY(-50%);
 }
@@ -409,7 +516,7 @@ button {
     position: absolute;
     inset: 14%;
 
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 50%;
 }
 
@@ -431,6 +538,9 @@ button {
     font-weight: 700;
     line-height: 0.94;
     letter-spacing: -0.065em;
+
+    text-shadow:
+        0 12px 50px rgba(0, 0, 0, 0.4);
 }
 
 .hero-highlight {
@@ -472,6 +582,9 @@ button {
     font-weight: 650;
     line-height: 1.02;
     letter-spacing: -0.055em;
+
+    text-shadow:
+        0 12px 45px rgba(0, 0, 0, 0.45);
 }
 
 .scene-text {
@@ -508,15 +621,16 @@ button {
     width: 1px;
     height: 52px;
 
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.52),
-        transparent
-    );
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.62),
+            transparent
+        );
 }
 
 /* =========================================================
-   ENDING
+   FINAL
 ========================================================= */
 
 .ending-scene {
@@ -564,7 +678,7 @@ button {
 
     box-shadow:
         0 18px 50px rgba(0, 0, 0, 0.3),
-        0 0 40px rgba(155, 188, 255, 0.1);
+        0 0 40px rgba(169, 199, 255, 0.15);
 
     transition:
         transform 180ms ease,
@@ -581,7 +695,7 @@ button {
 }
 
 /* =========================================================
-   ACCESSIBILITY
+   ACCESIBILIDAD
 ========================================================= */
 
 button:focus-visible {
@@ -634,6 +748,18 @@ button:focus-visible {
     .scene-title {
         font-size: clamp(2.75rem, 13vw, 4.4rem);
     }
+
+    .stars-small {
+        opacity: 0.9;
+    }
+
+    .stars-medium {
+        opacity: 0.65;
+    }
+
+    .stars-large {
+        opacity: 0.5;
+    }
 }
 
 @media (max-height: 650px) {
@@ -641,6 +767,10 @@ button:focus-visible {
         min-height: 760px;
     }
 }
+
+/* =========================================================
+   MOVIMIENTO REDUCIDO
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
     html {
