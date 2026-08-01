@@ -1,125 +1,221 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    <title>Un Pedacito de Mi Corazón ❤️</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#050505">
 
-    <link rel="manifest" href="manifest.json">
+    <title>Aurora</title>
+
     <link rel="stylesheet" href="style.css">
 
     <!-- GSAP -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"
+        defer
+    ></script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"
+        defer
+    ></script>
+
+    <script src="script.js" defer></script>
 </head>
 
-<body>
+<body class="intro-active">
 
-    <!-- Barra superior -->
-    <div id="progressBar"></div>
+    <!-- Barra superior de progreso -->
+    <div class="progress-track" aria-hidden="true">
+        <div id="progressBar"></div>
+    </div>
 
-    <!-- Fondo -->
-    <div class="gradient-bg"></div>
+    <!-- Fondo decorativo -->
+    <div class="background" aria-hidden="true">
+        <div class="background-glow background-glow-one"></div>
+        <div class="background-glow background-glow-two"></div>
+        <div class="background-noise"></div>
+    </div>
 
-    <!-- Partículas -->
-    <div id="particles"></div>
+    <!-- Introducción cinematográfica -->
+    <section
+        id="intro"
+        class="intro"
+        aria-label="Introducción"
+    >
+        <div class="intro-content">
 
-    <!-- Hero -->
-    <section class="hero">
+            <p class="intro-line intro-heart" aria-hidden="true">
+                ♥
+            </p>
 
-        <span class="hero-heart">❤️</span>
+            <p class="intro-line intro-hello">
+                Hola...
+            </p>
 
-        <h1>
-            Un Pedacito<br>
-            de Mi Corazón
-        </h1>
+            <p class="intro-line intro-message">
+                Quiero enseñarte algo.
+            </p>
 
-        <p>
-            Hay historias que comienzan con una mirada...
-        </p>
+            <div class="intro-final">
+                <p>Solo necesitas deslizar.</p>
 
-        <div class="scroll-indicator">
-            ↓
+                <div class="intro-arrow" aria-hidden="true">
+                    <span></span>
+                </div>
+            </div>
+
         </div>
 
-    </section>
-
-    <!-- Capítulo 1 -->
-    <section class="message">
-
-        <span class="chapter">
-            Capítulo 1
-        </span>
-
-        <h2>
-            Todo empezó...
-        </h2>
-
-        <p>
-            Aquí escribiremos el primer momento importante de su historia.
-        </p>
-
-    </section>
-
-    <!-- Capítulo 2 -->
-    <section class="message">
-
-        <span class="chapter">
-            Capítulo 2
-        </span>
-
-        <h2>
-            Poco a poco
-        </h2>
-
-        <p>
-            Aquí irá otro mensaje bonito.
-        </p>
-
-    </section>
-
-    <!-- Capítulo 3 -->
-    <section class="message">
-
-        <span class="chapter">
-            Capítulo 3
-        </span>
-
-        <h2>
-            Sin darme cuenta...
-        </h2>
-
-        <p>
-            Aquí contará otro recuerdo especial.
-        </p>
-
-    </section>
-
-    <!-- Capítulo Final -->
-    <section class="ending">
-
-        <h2>
-            Ya casi llegamos...
-        </h2>
-
-        <p>
-            Pero todavía quiero mostrarte una última cosa.
-        </p>
-
-        <button id="arButton">
-            ✨ Descubrir la sorpresa
+        <button
+            id="skipIntro"
+            class="skip-intro"
+            type="button"
+            aria-label="Saltar introducción"
+        >
+            Saltar
         </button>
-
     </section>
 
-    <script src="script.js"></script>
+    <!-- Contenido principal -->
+    <main id="experience">
+
+        <!-- Escena 1 -->
+        <section class="scene hero-scene">
+
+            <div class="scene-content hero-content">
+
+                <p class="eyebrow reveal">
+                    Una pequeña historia
+                </p>
+
+                <h1 class="hero-title reveal">
+                    Un pedacito<br>
+                    de mi corazón.
+                </h1>
+
+                <p class="hero-description reveal">
+                    Hay personas que llegan sin avisar y, poco a poco,
+                    empiezan a cambiar la forma en la que vemos los días.
+                </p>
+
+            </div>
+
+            <div class="scroll-hint reveal" aria-hidden="true">
+                <span>Desliza</span>
+
+                <div class="scroll-hint-line"></div>
+            </div>
+
+        </section>
+
+        <!-- Escena 2 -->
+        <section class="scene text-scene">
+
+            <div class="scene-content narrow-content">
+
+                <p class="scene-number reveal">
+                    01
+                </p>
+
+                <h2 class="scene-title reveal">
+                    A veces todo comienza de una forma muy sencilla.
+                </h2>
+
+                <p class="scene-text reveal">
+                    Una conversación. Una coincidencia. Un momento que
+                    parecía normal, pero que con el tiempo se volvió especial.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Escena 3 -->
+        <section class="scene text-scene">
+
+            <div class="scene-content narrow-content">
+
+                <p class="scene-number reveal">
+                    02
+                </p>
+
+                <h2 class="scene-title reveal">
+                    Y entonces apareciste tú.
+                </h2>
+
+                <p class="scene-text reveal">
+                    Con tu forma de ser, tus detalles y esa manera tan tuya
+                    de hacer que algunos días se sientan diferentes.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Escena 4 -->
+        <section class="scene text-scene">
+
+            <div class="scene-content narrow-content">
+
+                <p class="scene-number reveal">
+                    03
+                </p>
+
+                <h2 class="scene-title reveal">
+                    Esto apenas comienza.
+                </h2>
+
+                <p class="scene-text reveal">
+                    Todavía faltan recuerdos, fotografías, momentos
+                    importantes y una sorpresa al final.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Final temporal -->
+        <section class="scene ending-scene">
+
+            <div class="scene-content ending-content">
+
+                <p class="eyebrow reveal">
+                    Continuará
+                </p>
+
+                <h2 class="ending-title reveal">
+                    Mañana construiremos el siguiente capítulo.
+                </h2>
+
+                <p class="ending-text reveal">
+                    Por ahora, esta es la primera versión de Aurora.
+                </p>
+
+                <button
+                    id="restartButton"
+                    class="primary-button reveal"
+                    type="button"
+                >
+                    Volver al inicio
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <noscript>
+        <div class="noscript-message">
+            Esta experiencia necesita JavaScript para mostrar las animaciones.
+        </div>
+    </noscript>
 
 </body>
-
 </html>
