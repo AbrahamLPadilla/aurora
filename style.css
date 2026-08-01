@@ -1,0 +1,184 @@
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+}
+
+body{
+
+background:#000;
+
+color:white;
+
+font-family:-apple-system,
+BlinkMacSystemFont;
+
+overflow-x:hidden;
+
+}
+
+.hero{
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+text-align:center;
+
+padding:40px;
+
+}
+
+.hero h1{
+
+font-size:56px;
+
+font-weight:700;
+
+margin-bottom:20px;
+
+}
+
+.hero p{
+
+font-size:22px;
+
+opacity:.7;
+
+}
+
+.message{
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+padding:60px;
+
+text-align:center;
+
+}
+
+.message h2{
+
+font-size:42px;
+
+margin-bottom:30px;
+
+}
+
+.message p{
+
+font-size:22px;
+
+max-width:700px;
+
+line-height:1.8;
+
+}
+
+.ending{
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+}
+
+button{
+
+padding:20px 45px;
+
+border:none;
+
+border-radius:50px;
+
+font-size:20px;
+
+cursor:pointer;
+
+margin-top:40px;
+
+background:white;
+
+color:black;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:scale(1.05);
+
+}
+/* Fondo degradado animado */
+.gradient-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(-45deg,
+        #000000,
+        #111827,
+        #1e3a8a,
+        #000000);
+    background-size: 400% 400%;
+    animation: gradientMove 18s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Barra de progreso */
+#progressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: white;
+    z-index: 9999;
+}
+
+/* Scroll más suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Transiciones */
+.hero,
+.message,
+.ending {
+    transition: transform .4s ease;
+}
+
+/* Texto más bonito */
+.message p {
+    opacity: .9;
+    letter-spacing: .4px;
+}
