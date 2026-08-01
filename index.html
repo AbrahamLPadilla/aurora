@@ -5,16 +5,15 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
     >
 
-    <meta name="theme-color" content="#050505">
+    <meta name="theme-color" content="#030408">
 
     <title>Aurora</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- GSAP -->
     <script
         src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"
         defer
@@ -30,40 +29,45 @@
 
 <body class="intro-active">
 
-    <!-- Barra superior de progreso -->
+    <!-- Barra de progreso -->
     <div class="progress-track" aria-hidden="true">
         <div id="progressBar"></div>
     </div>
 
-    <!-- Fondo decorativo -->
+    <!-- Fondo general -->
     <div class="background" aria-hidden="true">
-        <div class="background-glow background-glow-one"></div>
-        <div class="background-glow background-glow-two"></div>
-        <div class="background-noise"></div>
+        <div class="stars stars-small"></div>
+        <div class="stars stars-medium"></div>
+
+        <div class="background-glow glow-one"></div>
+        <div class="background-glow glow-two"></div>
+
+        <div class="background-vignette"></div>
     </div>
 
-    <!-- Introducción cinematográfica -->
-    <section
-        id="intro"
-        class="intro"
-        aria-label="Introducción"
-    >
+    <!-- Introducción -->
+    <section id="intro" class="intro" aria-label="Introducción">
+
         <div class="intro-content">
 
-            <p class="intro-line intro-heart" aria-hidden="true">
+            <p class="intro-screen intro-heart" aria-hidden="true">
                 ♥
             </p>
 
-            <p class="intro-line intro-hello">
-                Hola...
+            <p class="intro-screen intro-story">
+                Hay historias...
             </p>
 
-            <p class="intro-line intro-message">
-                Quiero enseñarte algo.
+            <p class="intro-screen intro-change">
+                que cambian una vida.
             </p>
 
-            <div class="intro-final">
-                <p>Solo necesitas deslizar.</p>
+            <p class="intro-screen intro-final-message">
+                Esta es una de ellas.
+            </p>
+
+            <div class="intro-screen intro-instruction">
+                <p>Desliza para comenzar.</p>
 
                 <div class="intro-arrow" aria-hidden="true">
                     <span></span>
@@ -76,40 +80,67 @@
             id="skipIntro"
             class="skip-intro"
             type="button"
-            aria-label="Saltar introducción"
         >
             Saltar
         </button>
+
     </section>
 
-    <!-- Contenido principal -->
+    <!-- Experiencia principal -->
     <main id="experience">
 
-        <!-- Escena 1 -->
+        <!-- Hero -->
         <section class="scene hero-scene">
+
+            <div class="hero-orbit" aria-hidden="true"></div>
 
             <div class="scene-content hero-content">
 
                 <p class="eyebrow reveal">
-                    Una pequeña historia
+                    Para alguien especial
                 </p>
 
                 <h1 class="hero-title reveal">
-                    Un pedacito<br>
-                    de mi corazón.
+                    Algunas personas<br>
+                    llegan sin avisar.
                 </h1>
 
+                <p class="hero-highlight reveal">
+                    Y de pronto, todo se siente diferente.
+                </p>
+
                 <p class="hero-description reveal">
-                    Hay personas que llegan sin avisar y, poco a poco,
-                    empiezan a cambiar la forma en la que vemos los días.
+                    Esta es una pequeña forma de guardar lo que siento,
+                    recordar cómo comenzó todo y enseñarte algo que las
+                    palabras por sí solas no pueden explicar.
                 </p>
 
             </div>
 
             <div class="scroll-hint reveal" aria-hidden="true">
-                <span>Desliza</span>
-
+                <span>Continúa</span>
                 <div class="scroll-hint-line"></div>
+            </div>
+
+        </section>
+
+        <!-- Escena 1 -->
+        <section class="scene text-scene">
+
+            <div class="scene-content narrow-content">
+
+                <p class="scene-number reveal">01</p>
+
+                <h2 class="scene-title reveal">
+                    A veces todo comienza de la forma más sencilla.
+                </h2>
+
+                <p class="scene-text reveal">
+                    Una conversación, una coincidencia o un momento que
+                    parecía normal, pero que poco a poco comenzó a sentirse
+                    especial.
+                </p>
+
             </div>
 
         </section>
@@ -119,17 +150,15 @@
 
             <div class="scene-content narrow-content">
 
-                <p class="scene-number reveal">
-                    01
-                </p>
+                <p class="scene-number reveal">02</p>
 
                 <h2 class="scene-title reveal">
-                    A veces todo comienza de una forma muy sencilla.
+                    Entonces apareciste tú.
                 </h2>
 
                 <p class="scene-text reveal">
-                    Una conversación. Una coincidencia. Un momento que
-                    parecía normal, pero que con el tiempo se volvió especial.
+                    Con tu forma de ser, tus detalles y esa manera tan tuya
+                    de hacer que algunos días tengan un significado distinto.
                 </p>
 
             </div>
@@ -141,39 +170,15 @@
 
             <div class="scene-content narrow-content">
 
-                <p class="scene-number reveal">
-                    02
-                </p>
+                <p class="scene-number reveal">03</p>
 
                 <h2 class="scene-title reveal">
-                    Y entonces apareciste tú.
+                    Y sin darme cuenta, llegamos hasta aquí.
                 </h2>
 
                 <p class="scene-text reveal">
-                    Con tu forma de ser, tus detalles y esa manera tan tuya
-                    de hacer que algunos días se sientan diferentes.
-                </p>
-
-            </div>
-
-        </section>
-
-        <!-- Escena 4 -->
-        <section class="scene text-scene">
-
-            <div class="scene-content narrow-content">
-
-                <p class="scene-number reveal">
-                    03
-                </p>
-
-                <h2 class="scene-title reveal">
-                    Esto apenas comienza.
-                </h2>
-
-                <p class="scene-text reveal">
-                    Todavía faltan recuerdos, fotografías, momentos
-                    importantes y una sorpresa al final.
+                    Todavía faltan recuerdos, fotografías, palabras y una
+                    sorpresa que he estado preparando especialmente para ti.
                 </p>
 
             </div>
@@ -186,15 +191,15 @@
             <div class="scene-content ending-content">
 
                 <p class="eyebrow reveal">
-                    Continuará
+                    Aurora · Día 1
                 </p>
 
                 <h2 class="ending-title reveal">
-                    Mañana construiremos el siguiente capítulo.
+                    El comienzo ya está listo.
                 </h2>
 
                 <p class="ending-text reveal">
-                    Por ahora, esta es la primera versión de Aurora.
+                    El siguiente capítulo será nuestra historia.
                 </p>
 
                 <button
@@ -213,7 +218,7 @@
 
     <noscript>
         <div class="noscript-message">
-            Esta experiencia necesita JavaScript para mostrar las animaciones.
+            Esta experiencia necesita JavaScript para funcionar.
         </div>
     </noscript>
 
