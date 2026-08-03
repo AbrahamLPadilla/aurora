@@ -52,9 +52,15 @@ body.intro-active {
     overflow: hidden;
 }
 
-button {
+button,
+a {
     font: inherit;
     -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 /* FONDO */
@@ -208,10 +214,12 @@ button {
 
     width: 75vw;
     height: 75vw;
+
     min-width: 520px;
     min-height: 520px;
 
     border-radius: 50%;
+
     filter: blur(130px);
     opacity: 0.18;
 }
@@ -219,12 +227,14 @@ button {
 .glow-one {
     top: -35%;
     left: -35%;
+
     background: #1f6fff;
 }
 
 .glow-two {
     right: -40%;
     bottom: -40%;
+
     background: #765cff;
 }
 
@@ -240,7 +250,7 @@ button {
         );
 }
 
-/* PROGRESO */
+/* BARRA DE PROGRESO */
 
 .progress-track {
     position: fixed;
@@ -250,6 +260,7 @@ button {
 
     width: 100%;
     height: calc(2px + var(--safe-top));
+
     padding-top: var(--safe-top);
 
     pointer-events: none;
@@ -270,7 +281,7 @@ button {
         0 0 20px rgba(169, 199, 255, 0.7);
 }
 
-/* INTRO */
+/* INTRODUCCIÓN */
 
 .intro {
     position: fixed;
@@ -423,6 +434,7 @@ button {
 
     opacity: 0;
     visibility: hidden;
+
     transform: translateY(-12px);
 
     backdrop-filter: blur(20px);
@@ -436,12 +448,14 @@ button {
         color 220ms ease,
         background 220ms ease,
         border-color 220ms ease,
-        transform 220ms ease;
+        transform 220ms ease,
+        opacity 400ms ease;
 }
 
 .music-button.is-visible {
     opacity: 1;
     visibility: visible;
+
     transform: translateY(0);
 }
 
@@ -483,21 +497,23 @@ button {
     height: 5px;
 
     border-radius: 999px;
-    background: currentColor;
 
-    transform-origin: center;
+    background: currentColor;
 }
 
 .music-button.is-playing .music-bar:nth-child(1) {
-    animation: musicBarOne 900ms ease-in-out infinite alternate;
+    animation:
+        musicBarOne 900ms ease-in-out infinite alternate;
 }
 
 .music-button.is-playing .music-bar:nth-child(2) {
-    animation: musicBarTwo 700ms ease-in-out infinite alternate;
+    animation:
+        musicBarTwo 700ms ease-in-out infinite alternate;
 }
 
 .music-button.is-playing .music-bar:nth-child(3) {
-    animation: musicBarThree 1s ease-in-out infinite alternate;
+    animation:
+        musicBarThree 1s ease-in-out infinite alternate;
 }
 
 @keyframes musicBarOne {
@@ -532,6 +548,7 @@ button {
 
 .music-button-text {
     overflow: hidden;
+
     max-width: 180px;
 
     white-space: nowrap;
@@ -540,6 +557,7 @@ button {
 
 body.music-active .background-glow {
     opacity: 0.24;
+
     transition: opacity 1.2s ease;
 }
 
@@ -573,6 +591,8 @@ body.music-active .background-glow {
 .narrow-content {
     width: min(100%, var(--narrow-width));
 }
+
+/* HERO */
 
 .hero-scene {
     overflow: hidden;
@@ -623,6 +643,7 @@ body.music-active .background-glow {
     font-size: 0.76rem;
     font-weight: 650;
     letter-spacing: 0.17em;
+
     text-transform: uppercase;
 }
 
@@ -707,6 +728,7 @@ body.music-active .background-glow {
     font-size: 0.7rem;
     font-weight: 550;
     letter-spacing: 0.16em;
+
     text-transform: uppercase;
 
     transform: translateX(-50%);
@@ -724,7 +746,7 @@ body.music-active .background-glow {
         );
 }
 
-/* GALERÍA */
+/* ENTRADA A GALERÍA */
 
 .gallery-intro-scene {
     min-height: 110svh;
@@ -764,6 +786,7 @@ body.music-active .background-glow {
     align-items: flex-end;
 
     min-height: 100svh;
+
     overflow: hidden;
 
     background: #000;
@@ -811,8 +834,6 @@ body.music-active .background-glow {
         120px
         28px
         calc(80px + var(--safe-bottom));
-
-    text-align: left;
 }
 
 .memory-number {
@@ -823,6 +844,7 @@ body.music-active .background-glow {
     font-size: 0.75rem;
     font-weight: 650;
     letter-spacing: 0.18em;
+
     text-transform: uppercase;
 }
 
@@ -851,9 +873,181 @@ body.music-active .background-glow {
         0 5px 28px rgba(0, 0, 0, 0.7);
 }
 
-/* FINAL */
+/* ESCENA DE REALIDAD AUMENTADA */
 
-.ending-scene {
+.ar-scene {
+    min-height: 115svh;
+
+    overflow: hidden;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 38%,
+            rgba(86, 119, 194, 0.23),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(2, 4, 10, 0.2),
+            #02040a 76%
+        );
+}
+
+.ar-stars {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0.5;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.9) 1px,
+            transparent 1.6px
+        );
+
+    background-size: 110px 110px;
+
+    animation: arFloat 18s linear infinite;
+}
+
+@keyframes arFloat {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-110px);
+    }
+}
+
+.ar-content {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    width: min(100%, 900px);
+}
+
+.ar-title {
+    font-size: clamp(3rem, 8vw, 6.4rem);
+    font-weight: 650;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+}
+
+.ar-text {
+    max-width: 670px;
+    margin-top: 30px;
+
+    color: var(--text-secondary);
+
+    font-size: clamp(1.08rem, 2.5vw, 1.42rem);
+    line-height: 1.65;
+}
+
+.ar-button {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    margin-top: 46px;
+    padding: 18px 28px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.96);
+    color: #05070c;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35),
+        0 0 55px rgba(169, 199, 255, 0.2);
+
+    transition:
+        transform 200ms ease,
+        box-shadow 200ms ease;
+}
+
+.ar-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.4),
+        0 0 70px rgba(169, 199, 255, 0.28);
+}
+
+.ar-button:active {
+    transform: scale(0.98);
+}
+
+.ar-button-icon {
+    font-size: 1.1rem;
+}
+
+.ar-trigger-image {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0.001;
+    pointer-events: none;
+}
+
+.ar-help {
+    margin-top: 20px;
+
+    color: var(--text-muted);
+
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.secondary-button {
+    margin-top: 28px;
+    padding: 14px 22px;
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.07);
+    color: white;
+
+    cursor: pointer;
+
+    transition:
+        background 180ms ease,
+        transform 180ms ease;
+}
+
+.secondary-button:hover {
+    background: rgba(255, 255, 255, 0.12);
+
+    transform: translateY(-2px);
+}
+
+.secondary-button:active {
+    transform: scale(0.98);
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+/* ESCENA DESPUÉS DE AR */
+
+.after-ar-scene {
     text-align: center;
 }
 
@@ -908,6 +1102,7 @@ body.music-active .background-glow {
 
 .primary-button:hover {
     background: white;
+
     transform: translateY(-2px);
 }
 
@@ -917,7 +1112,8 @@ body.music-active .background-glow {
 
 /* ACCESIBILIDAD */
 
-button:focus-visible {
+button:focus-visible,
+a:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 4px;
 }
@@ -949,6 +1145,7 @@ button:focus-visible {
     .hero-orbit {
         top: 25%;
         right: -75%;
+
         width: 145vw;
     }
 
@@ -986,6 +1183,17 @@ button:focus-visible {
 
     .music-button-text {
         max-width: 145px;
+    }
+
+    .ar-button {
+        width: 100%;
+        max-width: 330px;
+
+        padding: 18px 22px;
+    }
+
+    .ar-title {
+        font-size: clamp(2.8rem, 13vw, 4.8rem);
     }
 }
 

@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const musicButtonText = document.getElementById("musicButtonText");
     const backgroundMusic = document.getElementById("backgroundMusic");
 
+    const arLink = document.getElementById("arLink");
+    const continueButton = document.getElementById("continueButton");
+    const afterAR = document.getElementById("afterAR");
+
     const videos = document.querySelectorAll(
         ".memory-video-element"
     );
@@ -20,8 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let introFinished = false;
     let introTimeline = null;
+
     let musicIsPlaying = false;
     let musicFadeAnimation = null;
+
+    let arOpened = false;
+
+    /* =====================================================
+       INTRODUCCIÓN
+    ===================================================== */
 
     const showMusicButton = () => {
         if (!musicButton) {
@@ -53,10 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         introFinished = true;
+
         document.body.classList.remove("intro-active");
 
         if (!hasGSAP) {
-            intro.remove();
+            intro?.remove();
             showMusicButton();
             return;
         }
@@ -67,7 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ease: "power2.inOut",
 
             onComplete: () => {
-                intro.remove();
+                intro?.remove();
+
                 ScrollTrigger.refresh();
 
                 window.scrollTo({
@@ -119,11 +132,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 scale: 1,
                 duration: 1.1
             })
+
             .to(".intro-heart", {
                 scale: 1.08,
                 duration: 1.1,
                 ease: "sine.inOut"
             })
+
             .to(".intro-heart", {
                 autoAlpha: 0,
                 y: -14,
@@ -135,9 +150,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 y: 0,
                 duration: 1
             })
+
             .to({}, {
                 duration: 1.15
             })
+
             .to(".intro-story", {
                 autoAlpha: 0,
                 y: -14,
@@ -149,9 +166,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 y: 0,
                 duration: 1
             })
+
             .to({}, {
                 duration: 1.3
             })
+
             .to(".intro-change", {
                 autoAlpha: 0,
                 y: -14,
@@ -163,9 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 y: 0,
                 duration: 1.1
             })
+
             .to({}, {
                 duration: 1.6
             })
+
             .to(".intro-final-message", {
                 autoAlpha: 0,
                 y: -14,
@@ -177,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 y: 0,
                 duration: 1
             })
+
             .fromTo(
                 ".intro-arrow span",
                 {
@@ -192,15 +214,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 "<"
             )
+
             .to({}, {
                 duration: 1.5
             })
+
             .to(".intro-instruction", {
                 autoAlpha: 0,
                 y: -10,
                 duration: 0.7
             });
     };
+
+    /* =====================================================
+       MÚSICA
+    ===================================================== */
 
     const stopMusicFade = () => {
         if (!musicFadeAnimation) {
@@ -216,29 +244,43 @@ document.addEventListener("DOMContentLoaded", () => {
         duration = 1000,
         pauseAtEnd = false
     ) => {
+        if (!backgroundMusic) {
+            return;
+        }
+
         stopMusicFade();
 
         const startingVolume = backgroundMusic.volume;
-        const volumeDifference = targetVolume - startingVolume;
+        const volumeDifference =
+            targetVolume - startingVolume;
+
         const startingTime = performance.now();
 
         const updateVolume = (currentTime) => {
-            const elapsedTime = currentTime - startingTime;
-            const progress = Math.min(elapsedTime / duration, 1);
-            const easedProgress = 1 - Math.pow(1 - progress, 3);
+            const elapsedTime =
+                currentTime - startingTime;
+
+            const progress = Math.min(
+                elapsedTime / duration,
+                1
+            );
+
+            const easedProgress =
+                1 - Math.pow(1 - progress, 3);
+
+            const nextVolume =
+                startingVolume +
+                volumeDifference * easedProgress;
 
             backgroundMusic.volume = Math.min(
-                Math.max(
-                    startingVolume +
-                    volumeDifference * easedProgress,
-                    0
-                ),
+                Math.max(nextVolume, 0),
                 1
             );
 
             if (progress < 1) {
                 musicFadeAnimation =
                     requestAnimationFrame(updateVolume);
+
                 return;
             }
 
@@ -256,27 +298,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateMusicButton = (isPlaying) => {
         musicIsPlaying = isPlaying;
 
-        musicButton.classList.toggle(
+        musicButton?.classList.toggle(
             "is-playing",
             isPlaying
         );
 
-        musicButton.setAttribute(
+        musicButton?.setAttribute(
             "aria-pressed",
             String(isPlaying)
         );
 
-        musicButton.setAttribute(
+        musicButton?.setAttribute(
             "aria-label",
             isPlaying
                 ? "Pausar música"
                 : "Reproducir música"
         );
 
-        musicButtonText.textContent =
-            isPlaying
-                ? "Pausar música"
-                : "Escuchar con música";
+        if (musicButtonText) {
+            musicButtonText.textContent =
+                isPlaying
+                    ? "Pausar música"
+                    : "Escuchar con música";
+        }
 
         document.body.classList.toggle(
             "music-active",
@@ -285,23 +329,46 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const playMusic = async () => {
+        if (!backgroundMusic) {
+            return;
+        }
+
         try {
             stopMusicFade();
+
             backgroundMusic.volume = 0;
 
             await backgroundMusic.play();
 
             updateMusicButton(true);
-            fadeMusicTo(0.24, 1800);
+
+            fadeMusicTo(
+                0.24,
+                1800
+            );
         } catch (error) {
             updateMusicButton(false);
-            musicButtonText.textContent = "Toca otra vez";
+
+            if (musicButtonText) {
+                musicButtonText.textContent =
+                    "Toca otra vez";
+            }
+
+            console.error(
+                "No fue posible reproducir la música:",
+                error
+            );
         }
     };
 
     const pauseMusic = () => {
         updateMusicButton(false);
-        fadeMusicTo(0, 700, true);
+
+        fadeMusicTo(
+            0,
+            700,
+            true
+        );
     };
 
     const toggleMusic = () => {
@@ -312,19 +379,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    musicButton.addEventListener(
+    musicButton?.addEventListener(
         "click",
         toggleMusic
     );
 
-    backgroundMusic.addEventListener(
+    backgroundMusic?.addEventListener(
         "error",
         () => {
             updateMusicButton(false);
-            musicButtonText.textContent =
-                "No se encontró la canción";
+
+            if (musicButtonText) {
+                musicButtonText.textContent =
+                    "No se encontró la canción";
+            }
         }
     );
+
+    /* =====================================================
+       ANIMACIONES DE SCROLL
+    ===================================================== */
 
     const createScrollAnimations = () => {
         if (!hasGSAP) {
@@ -438,7 +512,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
             }
         );
+
+        gsap.fromTo(
+            ".ar-button",
+            {
+                boxShadow:
+                    "0 20px 60px rgba(0, 0, 0, 0.35), 0 0 15px rgba(169, 199, 255, 0.08)"
+            },
+            {
+                boxShadow:
+                    "0 20px 60px rgba(0, 0, 0, 0.35), 0 0 70px rgba(169, 199, 255, 0.32)",
+                duration: 1.7,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            }
+        );
     };
+
+    /* =====================================================
+       VIDEO DE RECUERDO
+    ===================================================== */
 
     const createVideoObservers = () => {
         if (!("IntersectionObserver" in window)) {
@@ -451,9 +545,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const video = entry.target;
 
                     if (entry.isIntersecting) {
-                        video.play().catch(() => {
-                            // Safari puede impedir la reproducción.
-                        });
+                        video
+                            .play()
+                            .catch(() => {
+                                // Algunos navegadores pueden bloquearlo.
+                            });
                     } else {
                         video.pause();
                     }
@@ -469,6 +565,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    /* =====================================================
+       BARRA DE PROGRESO
+    ===================================================== */
+
     const updateProgressBar = () => {
         const scrollableHeight =
             document.documentElement.scrollHeight -
@@ -476,7 +576,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const percentage =
             scrollableHeight > 0
-                ? (window.scrollY / scrollableHeight) * 100
+                ? (
+                    window.scrollY /
+                    scrollableHeight
+                ) * 100
                 : 0;
 
         const safePercentage = Math.min(
@@ -484,38 +587,149 @@ document.addEventListener("DOMContentLoaded", () => {
             100
         );
 
-        if (hasGSAP) {
+        if (hasGSAP && progressBar) {
             gsap.set(progressBar, {
                 width: `${safePercentage}%`
             });
-        } else {
+
+            return;
+        }
+
+        if (progressBar) {
             progressBar.style.width =
                 `${safePercentage}%`;
         }
     };
 
-    const restartExperience = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+    /* =====================================================
+       REALIDAD AUMENTADA
+    ===================================================== */
+
+    const showContinueButton = () => {
+        continueButton?.classList.remove(
+            "is-hidden"
+        );
+
+        if (
+            hasGSAP &&
+            continueButton
+        ) {
+            gsap.fromTo(
+                continueButton,
+                {
+                    autoAlpha: 0,
+                    y: 15
+                },
+                {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.7,
+                    ease: "power2.out"
+                }
+            );
+        }
     };
 
-    skipIntroButton.addEventListener(
+    const prepareARLaunch = () => {
+        arOpened = true;
+
+        if (
+            musicIsPlaying &&
+            backgroundMusic
+        ) {
+            fadeMusicTo(
+                0.08,
+                500
+            );
+        }
+
+        /*
+         * Algunos navegadores no notifican exactamente
+         * cuándo se cerró Quick Look.
+         * Por eso dejamos disponible el botón Continuar
+         * poco después de tocar la sorpresa.
+         */
+        window.setTimeout(
+            showContinueButton,
+            1200
+        );
+    };
+
+    const restoreAfterAR = () => {
+        if (!arOpened) {
+            return;
+        }
+
+        showContinueButton();
+
+        if (
+            musicIsPlaying &&
+            backgroundMusic
+        ) {
+            fadeMusicTo(
+                0.24,
+                1200
+            );
+        }
+    };
+
+    arLink?.addEventListener(
+        "click",
+        prepareARLaunch
+    );
+
+    document.addEventListener(
+        "visibilitychange",
+        () => {
+            if (
+                arOpened &&
+                !document.hidden
+            ) {
+                restoreAfterAR();
+            }
+        }
+    );
+
+    window.addEventListener(
+        "pageshow",
+        restoreAfterAR
+    );
+
+    continueButton?.addEventListener(
         "click",
         () => {
-            if (introTimeline) {
-                introTimeline.kill();
-            }
+            afterAR?.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+    );
 
+    /* =====================================================
+       BOTONES GENERALES
+    ===================================================== */
+
+    skipIntroButton?.addEventListener(
+        "click",
+        () => {
+            introTimeline?.kill();
             finishIntro();
         }
     );
 
-    restartButton.addEventListener(
+    restartButton?.addEventListener(
         "click",
-        restartExperience
+        () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
     );
+
+    /* =====================================================
+       EVENTOS
+    ===================================================== */
 
     window.addEventListener(
         "scroll",
@@ -529,6 +743,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "resize",
         updateProgressBar
     );
+
+    /* =====================================================
+       INICIO
+    ===================================================== */
 
     createScrollAnimations();
     createVideoObservers();
