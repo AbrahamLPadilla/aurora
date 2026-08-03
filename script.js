@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const restartButton = document.getElementById("restartButton");
     const progressBar = document.getElementById("progressBar");
 
+    const videos = document.querySelectorAll(".memory-video-element");
+
     const hasGSAP =
         typeof window.gsap !== "undefined" &&
         typeof window.ScrollTrigger !== "undefined";
@@ -72,12 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         introTimeline
-            // Silencio inicial
             .to({}, {
                 duration: 1.3
             })
 
-            // Corazón
             .to(".intro-heart", {
                 autoAlpha: 1,
                 y: 0,
@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 duration: 0.75
             })
 
-            // Hay historias
             .to(".intro-story", {
                 autoAlpha: 1,
                 y: 0,
@@ -110,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 duration: 0.75
             })
 
-            // Que cambian una vida
             .to(".intro-change", {
                 autoAlpha: 1,
                 y: 0,
@@ -125,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 duration: 0.75
             })
 
-            // Esta es una de ellas
             .to(".intro-final-message", {
                 autoAlpha: 1,
                 y: 0,
@@ -140,7 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 duration: 0.8
             })
 
-            // Instrucción
             .to(".intro-instruction", {
                 autoAlpha: 1,
                 y: 0,
@@ -249,6 +245,86 @@ document.addEventListener("DOMContentLoaded", () => {
             yoyo: true,
             ease: "sine.inOut"
         });
+
+        gsap.utils.toArray(".memory").forEach((memory) => {
+            const media = memory.querySelector(
+                ".memory-media img, .memory-media video"
+            );
+
+            if (!media) {
+                return;
+            }
+
+            gsap.fromTo(
+                media,
+                {
+                    scale: 1.12
+                },
+                {
+                    scale: 1,
+                    ease: "none",
+
+                    scrollTrigger: {
+                        trigger: memory,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1.2
+                    }
+                }
+            );
+
+            gsap.fromTo(
+                media,
+                {
+                    yPercent: -4
+                },
+                {
+                    yPercent: 4,
+                    ease: "none",
+
+                    scrollTrigger: {
+                        trigger: memory,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1.4
+                    }
+                }
+            );
+        });
+    };
+
+    const createVideoObservers = () => {
+        if (!("IntersectionObserver" in window)) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    const video = entry.target;
+
+                    if (entry.isIntersecting) {
+                        const playPromise = video.play();
+
+                        if (playPromise !== undefined) {
+                            playPromise.catch(() => {
+                                // Safari puede impedirlo si el video
+                                // no está correctamente silenciado.
+                            });
+                        }
+                    } else {
+                        video.pause();
+                    }
+                });
+            },
+            {
+                threshold: 0.45
+            }
+        );
+
+        videos.forEach((video) => {
+            observer.observe(video);
+        });
     };
 
     const updateProgressBar = () => {
@@ -260,14 +336,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? (window.scrollY / scrollableHeight) * 100
                 : 0;
 
-        const safePercentage = Math.min(Math.max(percentage, 0), 100);
+        const safePercentage = Math.min(
+            Math.max(percentage, 0),
+            100
+        );
 
         if (hasGSAP) {
             gsap.set(progressBar, {
                 width: `${safePercentage}%`
             });
         } else {
-            progressBar.style.width = `${safePercentage}%`;
+            progressBar.style.width =
+                `${safePercentage}%`;
         }
     };
 
@@ -286,15 +366,26 @@ document.addEventListener("DOMContentLoaded", () => {
         finishIntro();
     });
 
-    restartButton.addEventListener("click", restartExperience);
+    restartButton.addEventListener(
+        "click",
+        restartExperience
+    );
 
-    window.addEventListener("scroll", updateProgressBar, {
-        passive: true
-    });
+    window.addEventListener(
+        "scroll",
+        updateProgressBar,
+        {
+            passive: true
+        }
+    );
 
-    window.addEventListener("resize", updateProgressBar);
+    window.addEventListener(
+        "resize",
+        updateProgressBar
+    );
 
     createScrollAnimations();
+    createVideoObservers();
     createIntro();
     updateProgressBar();
 });
