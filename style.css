@@ -48,7 +48,8 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-body.intro-active {
+body.intro-active,
+body.ar-opening {
     overflow: hidden;
 }
 
@@ -160,9 +161,10 @@ a {
     background-size: 520px 520px;
     background-position: 170px 120px;
 
-    filter: drop-shadow(
-        0 0 5px rgba(169, 199, 255, 0.75)
-    );
+    filter:
+        drop-shadow(
+            0 0 5px rgba(169, 199, 255, 0.75)
+        );
 
     animation:
         starsMoveLarge 110s linear infinite,
@@ -281,7 +283,7 @@ a {
         0 0 20px rgba(169, 199, 255, 0.7);
 }
 
-/* INTRODUCCIÓN */
+/* INTRO */
 
 .intro {
     position: fixed;
@@ -333,9 +335,6 @@ a {
 .intro-heart {
     font-size: clamp(3.5rem, 14vw, 6rem);
     line-height: 1;
-
-    text-shadow:
-        0 0 35px rgba(255, 255, 255, 0.18);
 }
 
 .intro-story,
@@ -397,12 +396,8 @@ a {
     color: rgba(255, 255, 255, 0.5);
 
     font-size: 0.78rem;
-    font-weight: 500;
 
     cursor: pointer;
-
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
 }
 
 /* MÚSICA */
@@ -440,10 +435,6 @@ a {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 
-    box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.22),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
     transition:
         color 220ms ease,
         background 220ms ease,
@@ -459,25 +450,11 @@ a {
     transform: translateY(0);
 }
 
-.music-button:hover {
-    color: white;
-    background: rgba(12, 18, 32, 0.78);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.music-button:active {
-    transform: scale(0.97);
-}
-
 .music-button.is-playing {
     color: white;
+
     background: rgba(24, 42, 76, 0.72);
     border-color: rgba(169, 199, 255, 0.34);
-
-    box-shadow:
-        0 12px 38px rgba(0, 0, 0, 0.28),
-        0 0 30px rgba(92, 139, 226, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .music-button-icon {
@@ -625,16 +602,6 @@ body.music-active .background-glow {
     transform: translateY(-50%);
 }
 
-.hero-orbit::before {
-    content: "";
-
-    position: absolute;
-    inset: 14%;
-
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 50%;
-}
-
 .eyebrow {
     margin-bottom: 26px;
 
@@ -647,6 +614,15 @@ body.music-active .background-glow {
     text-transform: uppercase;
 }
 
+.hero-title,
+.scene-title,
+.gallery-intro-title,
+.memory-title,
+.pre-ar-title {
+    text-shadow:
+        0 12px 45px rgba(0, 0, 0, 0.45);
+}
+
 .hero-title {
     max-width: 1050px;
 
@@ -654,28 +630,28 @@ body.music-active .background-glow {
     font-weight: 700;
     line-height: 0.94;
     letter-spacing: -0.065em;
-
-    text-shadow:
-        0 12px 50px rgba(0, 0, 0, 0.4);
 }
 
 .hero-highlight {
     max-width: 760px;
     margin-top: 34px;
 
-    color: var(--text-primary);
-
     font-size: clamp(1.45rem, 3vw, 2rem);
     font-weight: 550;
     line-height: 1.35;
-    letter-spacing: -0.025em;
+}
+
+.hero-description,
+.scene-text,
+.gallery-intro-text,
+.memory-text,
+.pre-ar-text {
+    color: var(--text-secondary);
 }
 
 .hero-description {
     max-width: 680px;
     margin-top: 24px;
-
-    color: var(--text-secondary);
 
     font-size: clamp(1.05rem, 2.2vw, 1.3rem);
     line-height: 1.75;
@@ -698,16 +674,11 @@ body.music-active .background-glow {
     font-weight: 650;
     line-height: 1.02;
     letter-spacing: -0.055em;
-
-    text-shadow:
-        0 12px 45px rgba(0, 0, 0, 0.45);
 }
 
 .scene-text {
     max-width: 650px;
     margin-top: 34px;
-
-    color: var(--text-secondary);
 
     font-size: clamp(1.07rem, 2.4vw, 1.34rem);
     line-height: 1.75;
@@ -746,14 +717,15 @@ body.music-active .background-glow {
         );
 }
 
-/* ENTRADA A GALERÍA */
+/* GALERÍA */
 
 .gallery-intro-scene {
     min-height: 110svh;
     text-align: center;
 }
 
-.gallery-intro-content {
+.gallery-intro-content,
+.pre-ar-content {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -761,17 +733,17 @@ body.music-active .background-glow {
     width: min(100%, 900px);
 }
 
-.gallery-intro-title {
+.gallery-intro-title,
+.pre-ar-title {
     font-size: clamp(3rem, 8vw, 6.5rem);
     font-weight: 650;
     line-height: 0.98;
     letter-spacing: -0.06em;
 }
 
-.gallery-intro-text {
+.gallery-intro-text,
+.pre-ar-text {
     margin-top: 30px;
-
-    color: var(--text-secondary);
 
     font-size: clamp(1.1rem, 2.5vw, 1.4rem);
     line-height: 1.6;
@@ -836,14 +808,14 @@ body.music-active .background-glow {
         calc(80px + var(--safe-bottom));
 }
 
-.memory-number {
+.memory-kicker {
     margin-bottom: 20px;
 
-    color: rgba(255, 255, 255, 0.62);
+    color: var(--accent);
 
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 650;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.14em;
 
     text-transform: uppercase;
 }
@@ -855,28 +827,20 @@ body.music-active .background-glow {
     font-weight: 650;
     line-height: 0.98;
     letter-spacing: -0.055em;
-
-    text-shadow:
-        0 8px 40px rgba(0, 0, 0, 0.55);
 }
 
 .memory-text {
     max-width: 650px;
     margin-top: 24px;
 
-    color: rgba(255, 255, 255, 0.78);
-
     font-size: clamp(1.08rem, 2.5vw, 1.38rem);
     line-height: 1.65;
-
-    text-shadow:
-        0 5px 28px rgba(0, 0, 0, 0.7);
 }
 
-/* ESCENA DE REALIDAD AUMENTADA */
+/* TRANSICIÓN HACIA AR */
 
-.ar-scene {
-    min-height: 115svh;
+.pre-ar-scene {
+    min-height: 125svh;
 
     overflow: hidden;
 
@@ -884,71 +848,21 @@ body.music-active .background-glow {
 
     background:
         radial-gradient(
-            circle at 50% 38%,
-            rgba(86, 119, 194, 0.23),
-            transparent 30%
-        ),
-        linear-gradient(
-            180deg,
-            rgba(2, 4, 10, 0.2),
-            #02040a 76%
+            circle at 50% 48%,
+            rgba(92, 130, 220, 0.2),
+            transparent 32%
         );
 }
 
-.ar-stars {
-    position: absolute;
-    inset: 0;
-
-    opacity: 0.5;
-
-    background-image:
-        radial-gradient(
-            circle,
-            rgba(255, 255, 255, 0.9) 1px,
-            transparent 1.6px
-        );
-
-    background-size: 110px 110px;
-
-    animation: arFloat 18s linear infinite;
-}
-
-@keyframes arFloat {
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(-110px);
-    }
-}
-
-.ar-content {
-    position: relative;
-    z-index: 2;
-
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    width: min(100%, 900px);
-}
-
-.ar-title {
-    font-size: clamp(3rem, 8vw, 6.4rem);
-    font-weight: 650;
-    line-height: 0.98;
-    letter-spacing: -0.06em;
-}
-
-.ar-text {
-    max-width: 670px;
+.pre-ar-emphasis {
+    max-width: 700px;
     margin-top: 30px;
 
-    color: var(--text-secondary);
+    color: var(--text-primary);
 
-    font-size: clamp(1.08rem, 2.5vw, 1.42rem);
-    line-height: 1.65;
+    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    font-weight: 600;
+    line-height: 1.5;
 }
 
 .ar-button {
@@ -959,7 +873,7 @@ body.music-active .background-glow {
     justify-content: center;
     gap: 12px;
 
-    margin-top: 46px;
+    margin-top: 48px;
     padding: 18px 28px;
 
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -969,6 +883,8 @@ body.music-active .background-glow {
     color: #05070c;
 
     font-weight: 700;
+
+    cursor: pointer;
 
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.35),
@@ -991,10 +907,6 @@ body.music-active .background-glow {
     transform: scale(0.98);
 }
 
-.ar-button-icon {
-    font-size: 1.1rem;
-}
-
 .ar-trigger-image {
     position: absolute;
 
@@ -1014,100 +926,53 @@ body.music-active .background-glow {
     line-height: 1.5;
 }
 
-.secondary-button {
-    margin-top: 28px;
-    padding: 14px 22px;
+/* PANTALLA ANTES DE ABRIR AR */
 
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 999px;
+.ar-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
 
-    background: rgba(255, 255, 255, 0.07);
+    display: grid;
+    place-items: center;
+
+    padding: 24px;
+
+    background: #000;
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+.ar-transition.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ar-transition p {
     color: white;
 
-    cursor: pointer;
+    font-size: clamp(2rem, 7vw, 4.5rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
 
-    transition:
-        background 180ms ease,
-        transform 180ms ease;
-}
-
-.secondary-button:hover {
-    background: rgba(255, 255, 255, 0.12);
-
-    transform: translateY(-2px);
-}
-
-.secondary-button:active {
-    transform: scale(0.98);
-}
-
-.is-hidden {
-    display: none !important;
-}
-
-/* ESCENA DESPUÉS DE AR */
-
-.after-ar-scene {
     text-align: center;
 }
 
-.ending-content {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+/* FINAL */
 
-    width: min(100%, 850px);
+.final-heart-scene {
+    min-height: 100svh;
 }
 
-.ending-title {
-    font-size: clamp(2.8rem, 7vw, 6rem);
-    font-weight: 650;
+.final-heart {
+    font-size: clamp(4rem, 18vw, 8rem);
     line-height: 1;
-    letter-spacing: -0.06em;
-}
 
-.ending-text {
-    max-width: 650px;
-    margin-top: 30px;
-
-    color: var(--text-secondary);
-
-    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
-    line-height: 1.7;
-}
-
-.primary-button {
-    margin-top: 46px;
-    padding: 17px 28px;
-
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 999px;
-
-    background: rgba(255, 255, 255, 0.95);
-    color: #080808;
-
-    font-size: 1rem;
-    font-weight: 650;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 18px 50px rgba(0, 0, 0, 0.3),
-        0 0 40px rgba(169, 199, 255, 0.15);
-
-    transition:
-        transform 180ms ease,
-        background 180ms ease;
-}
-
-.primary-button:hover {
-    background: white;
-
-    transform: translateY(-2px);
-}
-
-.primary-button:active {
-    transform: scale(0.98);
+    text-shadow:
+        0 0 50px rgba(169, 199, 255, 0.18);
 }
 
 /* ACCESIBILIDAD */
@@ -1151,11 +1016,6 @@ a:focus-visible {
 
     .hero-title {
         font-size: clamp(3.25rem, 16vw, 5.3rem);
-        line-height: 0.96;
-    }
-
-    .hero-highlight {
-        margin-top: 30px;
     }
 
     .scene-title {
@@ -1187,13 +1047,9 @@ a:focus-visible {
 
     .ar-button {
         width: 100%;
-        max-width: 330px;
+        max-width: 340px;
 
         padding: 18px 22px;
-    }
-
-    .ar-title {
-        font-size: clamp(2.8rem, 13vw, 4.8rem);
     }
 }
 

@@ -1,22 +1,34 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-    const intro = document.getElementById("intro");
-    const skipIntroButton = document.getElementById("skipIntro");
-    const restartButton = document.getElementById("restartButton");
-    const progressBar = document.getElementById("progressBar");
+    const intro =
+        document.getElementById("intro");
 
-    const musicButton = document.getElementById("musicButton");
-    const musicButtonText = document.getElementById("musicButtonText");
-    const backgroundMusic = document.getElementById("backgroundMusic");
+    const skipIntroButton =
+        document.getElementById("skipIntro");
 
-    const arLink = document.getElementById("arLink");
-    const continueButton = document.getElementById("continueButton");
-    const afterAR = document.getElementById("afterAR");
+    const progressBar =
+        document.getElementById("progressBar");
 
-    const videos = document.querySelectorAll(
-        ".memory-video-element"
-    );
+    const musicButton =
+        document.getElementById("musicButton");
+
+    const musicButtonText =
+        document.getElementById("musicButtonText");
+
+    const backgroundMusic =
+        document.getElementById("backgroundMusic");
+
+    const arLink =
+        document.getElementById("arLink");
+
+    const arTransition =
+        document.getElementById("arTransition");
+
+    const videos =
+        document.querySelectorAll(
+            ".memory-video-element"
+        );
 
     const hasGSAP =
         typeof window.gsap !== "undefined" &&
@@ -28,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let musicIsPlaying = false;
     let musicFadeAnimation = null;
 
-    let arOpened = false;
+    let arLaunchStarted = false;
 
     /* =====================================================
        INTRODUCCIÓN
@@ -39,7 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        musicButton.classList.add("is-visible");
+        musicButton.classList.add(
+            "is-visible"
+        );
 
         if (hasGSAP) {
             gsap.fromTo(
@@ -65,7 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         introFinished = true;
 
-        document.body.classList.remove("intro-active");
+        document.body.classList.remove(
+            "intro-active"
+        );
 
         if (!hasGSAP) {
             intro?.remove();
@@ -235,7 +251,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        cancelAnimationFrame(musicFadeAnimation);
+        cancelAnimationFrame(
+            musicFadeAnimation
+        );
+
         musicFadeAnimation = null;
     };
 
@@ -250,36 +269,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
         stopMusicFade();
 
-        const startingVolume = backgroundMusic.volume;
+        const startingVolume =
+            backgroundMusic.volume;
+
         const volumeDifference =
             targetVolume - startingVolume;
 
-        const startingTime = performance.now();
+        const startingTime =
+            performance.now();
 
-        const updateVolume = (currentTime) => {
-            const elapsedTime =
-                currentTime - startingTime;
-
-            const progress = Math.min(
-                elapsedTime / duration,
-                1
-            );
+        const updateVolume = (
+            currentTime
+        ) => {
+            const progress =
+                Math.min(
+                    (
+                        currentTime -
+                        startingTime
+                    ) / duration,
+                    1
+                );
 
             const easedProgress =
-                1 - Math.pow(1 - progress, 3);
+                1 -
+                Math.pow(
+                    1 - progress,
+                    3
+                );
 
-            const nextVolume =
-                startingVolume +
-                volumeDifference * easedProgress;
-
-            backgroundMusic.volume = Math.min(
-                Math.max(nextVolume, 0),
-                1
-            );
+            backgroundMusic.volume =
+                Math.min(
+                    Math.max(
+                        startingVolume +
+                        volumeDifference *
+                        easedProgress,
+                        0
+                    ),
+                    1
+                );
 
             if (progress < 1) {
                 musicFadeAnimation =
-                    requestAnimationFrame(updateVolume);
+                    requestAnimationFrame(
+                        updateVolume
+                    );
 
                 return;
             }
@@ -292,10 +325,14 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         musicFadeAnimation =
-            requestAnimationFrame(updateVolume);
+            requestAnimationFrame(
+                updateVolume
+            );
     };
 
-    const updateMusicButton = (isPlaying) => {
+    const updateMusicButton = (
+        isPlaying
+    ) => {
         musicIsPlaying = isPlaying;
 
         musicButton?.classList.toggle(
@@ -405,10 +442,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        gsap.registerPlugin(ScrollTrigger);
+        gsap.registerPlugin(
+            ScrollTrigger
+        );
 
-        gsap.utils.toArray(".reveal").forEach(
-            (element) => {
+        gsap.utils
+            .toArray(".reveal")
+            .forEach((element) => {
                 gsap.fromTo(
                     element,
                     {
@@ -428,8 +468,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     }
                 );
-            }
-        );
+            });
 
         gsap.to(".glow-one", {
             xPercent: 28,
@@ -481,11 +520,13 @@ document.addEventListener("DOMContentLoaded", () => {
             ease: "sine.inOut"
         });
 
-        gsap.utils.toArray(".memory").forEach(
-            (memory) => {
-                const media = memory.querySelector(
-                    ".memory-media img, .memory-media video"
-                );
+        gsap.utils
+            .toArray(".memory")
+            .forEach((memory) => {
+                const media =
+                    memory.querySelector(
+                        ".memory-media img, .memory-media video"
+                    );
 
                 if (!media) {
                     return;
@@ -510,24 +551,16 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     }
                 );
-            }
-        );
+            });
 
-        gsap.fromTo(
-            ".ar-button",
-            {
-                boxShadow:
-                    "0 20px 60px rgba(0, 0, 0, 0.35), 0 0 15px rgba(169, 199, 255, 0.08)"
-            },
-            {
-                boxShadow:
-                    "0 20px 60px rgba(0, 0, 0, 0.35), 0 0 70px rgba(169, 199, 255, 0.32)",
-                duration: 1.7,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            }
-        );
+        gsap.to(".ar-button", {
+            boxShadow:
+                "0 20px 60px rgba(0, 0, 0, 0.35), 0 0 80px rgba(169, 199, 255, 0.35)",
+            duration: 1.7,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
     };
 
     /* =====================================================
@@ -535,30 +568,41 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const createVideoObservers = () => {
-        if (!("IntersectionObserver" in window)) {
+        if (
+            !(
+                "IntersectionObserver"
+                in window
+            )
+        ) {
             return;
         }
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const video = entry.target;
+        const observer =
+            new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(
+                        (entry) => {
+                            const video =
+                                entry.target;
 
-                    if (entry.isIntersecting) {
-                        video
-                            .play()
-                            .catch(() => {
-                                // Algunos navegadores pueden bloquearlo.
-                            });
-                    } else {
-                        video.pause();
-                    }
-                });
-            },
-            {
-                threshold: 0.45
-            }
-        );
+                            if (
+                                entry.isIntersecting
+                            ) {
+                                video
+                                    .play()
+                                    .catch(
+                                        () => {}
+                                    );
+                            } else {
+                                video.pause();
+                            }
+                        }
+                    );
+                },
+                {
+                    threshold: 0.45
+                }
+            );
 
         videos.forEach((video) => {
             observer.observe(video);
@@ -571,7 +615,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const updateProgressBar = () => {
         const scrollableHeight =
-            document.documentElement.scrollHeight -
+            document.documentElement
+                .scrollHeight -
             window.innerHeight;
 
         const percentage =
@@ -582,15 +627,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 ) * 100
                 : 0;
 
-        const safePercentage = Math.min(
-            Math.max(percentage, 0),
-            100
-        );
+        const safePercentage =
+            Math.min(
+                Math.max(
+                    percentage,
+                    0
+                ),
+                100
+            );
 
-        if (hasGSAP && progressBar) {
-            gsap.set(progressBar, {
-                width: `${safePercentage}%`
-            });
+        if (
+            hasGSAP &&
+            progressBar
+        ) {
+            gsap.set(
+                progressBar,
+                {
+                    width:
+                        `${safePercentage}%`
+                }
+            );
 
             return;
         }
@@ -605,62 +661,16 @@ document.addEventListener("DOMContentLoaded", () => {
        REALIDAD AUMENTADA
     ===================================================== */
 
-    const showContinueButton = () => {
-        continueButton?.classList.remove(
-            "is-hidden"
+    const resetARTransition = () => {
+        arTransition?.classList.remove(
+            "is-active"
         );
 
-        if (
-            hasGSAP &&
-            continueButton
-        ) {
-            gsap.fromTo(
-                continueButton,
-                {
-                    autoAlpha: 0,
-                    y: 15
-                },
-                {
-                    autoAlpha: 1,
-                    y: 0,
-                    duration: 0.7,
-                    ease: "power2.out"
-                }
-            );
-        }
-    };
-
-    const prepareARLaunch = () => {
-        arOpened = true;
-
-        if (
-            musicIsPlaying &&
-            backgroundMusic
-        ) {
-            fadeMusicTo(
-                0.08,
-                500
-            );
-        }
-
-        /*
-         * Algunos navegadores no notifican exactamente
-         * cuándo se cerró Quick Look.
-         * Por eso dejamos disponible el botón Continuar
-         * poco después de tocar la sorpresa.
-         */
-        window.setTimeout(
-            showContinueButton,
-            1200
+        document.body.classList.remove(
+            "ar-opening"
         );
-    };
 
-    const restoreAfterAR = () => {
-        if (!arOpened) {
-            return;
-        }
-
-        showContinueButton();
+        arLaunchStarted = false;
 
         if (
             musicIsPlaying &&
@@ -673,40 +683,122 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    const openARWithTransition = (
+        event
+    ) => {
+        if (
+            arLaunchStarted ||
+            !arLink ||
+            !arTransition
+        ) {
+            return;
+        }
+
+        event.preventDefault();
+
+        arLaunchStarted = true;
+
+        document.body.classList.add(
+            "ar-opening"
+        );
+
+        if (musicIsPlaying) {
+            fadeMusicTo(
+                0.06,
+                900
+            );
+        }
+
+        const openQuickLook = () => {
+            window.location.href =
+                arLink.href;
+
+            window.setTimeout(
+                resetARTransition,
+                1800
+            );
+        };
+
+        if (hasGSAP) {
+            arTransition.classList.add(
+                "is-active"
+            );
+
+            gsap.fromTo(
+                arTransition,
+                {
+                    autoAlpha: 0
+                },
+                {
+                    autoAlpha: 1,
+                    duration: 0.65,
+                    ease: "power2.inOut"
+                }
+            );
+
+            gsap.fromTo(
+                "#arTransition p",
+                {
+                    autoAlpha: 0,
+                    y: 18
+                },
+                {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.8,
+                    delay: 0.25,
+                    ease: "power2.out",
+
+                    onComplete: () => {
+                        window.setTimeout(
+                            openQuickLook,
+                            650
+                        );
+                    }
+                }
+            );
+
+            return;
+        }
+
+        arTransition.classList.add(
+            "is-active"
+        );
+
+        window.setTimeout(
+            openQuickLook,
+            1000
+        );
+    };
+
     arLink?.addEventListener(
         "click",
-        prepareARLaunch
+        openARWithTransition
     );
 
     document.addEventListener(
         "visibilitychange",
         () => {
             if (
-                arOpened &&
-                !document.hidden
+                !document.hidden &&
+                arLaunchStarted
             ) {
-                restoreAfterAR();
+                resetARTransition();
             }
         }
     );
 
     window.addEventListener(
         "pageshow",
-        restoreAfterAR
-    );
-
-    continueButton?.addEventListener(
-        "click",
         () => {
-            afterAR?.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+            if (arLaunchStarted) {
+                resetARTransition();
+            }
         }
     );
 
     /* =====================================================
-       BOTONES GENERALES
+       BOTONES Y EVENTOS
     ===================================================== */
 
     skipIntroButton?.addEventListener(
@@ -716,20 +808,6 @@ document.addEventListener("DOMContentLoaded", () => {
             finishIntro();
         }
     );
-
-    restartButton?.addEventListener(
-        "click",
-        () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
-    );
-
-    /* =====================================================
-       EVENTOS
-    ===================================================== */
 
     window.addEventListener(
         "scroll",
