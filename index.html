@@ -29,12 +29,45 @@
 
 <body class="intro-active">
 
-    <!-- Barra de progreso -->
+    <!-- CONTROL DE MÚSICA -->
+    <button
+        id="musicButton"
+        class="music-button"
+        type="button"
+        aria-label="Reproducir música"
+        aria-pressed="false"
+    >
+        <span class="music-button-icon" aria-hidden="true">
+            <span class="music-bar"></span>
+            <span class="music-bar"></span>
+            <span class="music-bar"></span>
+        </span>
+
+        <span
+            id="musicButtonText"
+            class="music-button-text"
+        >
+            Escuchar con música
+        </span>
+    </button>
+
+    <audio
+        id="backgroundMusic"
+        preload="metadata"
+        loop
+    >
+        <source
+            src="assets/audio/cancion.mp3"
+            type="audio/mpeg"
+        >
+    </audio>
+
+    <!-- BARRA DE PROGRESO -->
     <div class="progress-track" aria-hidden="true">
         <div id="progressBar"></div>
     </div>
 
-    <!-- Fondo -->
+    <!-- FONDO -->
     <div class="background" aria-hidden="true">
         <div class="stars stars-small"></div>
         <div class="stars stars-medium"></div>
@@ -46,7 +79,7 @@
         <div class="background-vignette"></div>
     </div>
 
-    <!-- Introducción -->
+    <!-- INTRODUCCIÓN -->
     <section
         id="intro"
         class="intro"
@@ -141,7 +174,6 @@
 
         <!-- HISTORIA 01 -->
         <section class="scene text-scene">
-
             <div class="scene-content narrow-content">
 
                 <p class="scene-number reveal">
@@ -165,12 +197,10 @@
                 </p>
 
             </div>
-
         </section>
 
         <!-- HISTORIA 02 -->
         <section class="scene text-scene">
-
             <div class="scene-content narrow-content">
 
                 <p class="scene-number reveal">
@@ -200,12 +230,10 @@
                 </p>
 
             </div>
-
         </section>
 
         <!-- HISTORIA 03 -->
         <section class="scene text-scene">
-
             <div class="scene-content narrow-content">
 
                 <p class="scene-number reveal">
@@ -234,12 +262,10 @@
                 </p>
 
             </div>
-
         </section>
 
         <!-- HISTORIA 04 -->
         <section class="scene text-scene">
-
             <div class="scene-content narrow-content">
 
                 <p class="scene-number reveal">
@@ -267,12 +293,10 @@
                 </p>
 
             </div>
-
         </section>
 
         <!-- HISTORIA 05 -->
         <section class="scene text-scene">
-
             <div class="scene-content narrow-content">
 
                 <p class="scene-number reveal">
@@ -300,12 +324,10 @@
                 </p>
 
             </div>
-
         </section>
 
         <!-- HISTORIA 06 -->
         <section class="scene text-scene">
-
             <div class="scene-content narrow-content">
 
                 <p class="scene-number reveal">
@@ -335,12 +357,10 @@
                 </p>
 
             </div>
-
         </section>
 
         <!-- HISTORIA 07 -->
         <section class="scene text-scene">
-
             <div class="scene-content narrow-content">
 
                 <p class="scene-number reveal">
@@ -368,12 +388,10 @@
                 </p>
 
             </div>
-
         </section>
 
         <!-- HISTORIA 08 -->
         <section class="scene text-scene">
-
             <div class="scene-content narrow-content">
 
                 <p class="scene-number reveal">
@@ -396,12 +414,10 @@
                 </p>
 
             </div>
-
         </section>
 
-        <!-- ENTRADA A RECUERDOS -->
+        <!-- ENTRADA A GALERÍA -->
         <section class="scene gallery-intro-scene">
-
             <div class="scene-content gallery-intro-content">
 
                 <p class="eyebrow reveal">
@@ -417,7 +433,6 @@
                 </p>
 
             </div>
-
         </section>
 
         <!-- FOTO JUNTOS -->
@@ -602,7 +617,7 @@
 
         </section>
 
-        <!-- CIERRE DEL DÍA 3 -->
+        <!-- CIERRE -->
         <section class="scene ending-scene">
 
             <div class="scene-content ending-content">

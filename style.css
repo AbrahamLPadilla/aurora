@@ -394,6 +394,155 @@ button {
     -webkit-backdrop-filter: blur(18px);
 }
 
+/* MÚSICA */
+
+.music-button {
+    position: fixed;
+    top: calc(18px + var(--safe-top));
+    left: 18px;
+    z-index: 900;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    max-width: calc(100vw - 120px);
+    padding: 10px 15px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+
+    background: rgba(5, 8, 16, 0.58);
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: 0.78rem;
+    font-weight: 550;
+    line-height: 1;
+
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    transition:
+        color 220ms ease,
+        background 220ms ease,
+        border-color 220ms ease,
+        transform 220ms ease;
+}
+
+.music-button.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.music-button:hover {
+    color: white;
+    background: rgba(12, 18, 32, 0.78);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.music-button:active {
+    transform: scale(0.97);
+}
+
+.music-button.is-playing {
+    color: white;
+    background: rgba(24, 42, 76, 0.72);
+    border-color: rgba(169, 199, 255, 0.34);
+
+    box-shadow:
+        0 12px 38px rgba(0, 0, 0, 0.28),
+        0 0 30px rgba(92, 139, 226, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.music-button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+
+    width: 18px;
+    height: 18px;
+}
+
+.music-bar {
+    display: block;
+
+    width: 2px;
+    height: 5px;
+
+    border-radius: 999px;
+    background: currentColor;
+
+    transform-origin: center;
+}
+
+.music-button.is-playing .music-bar:nth-child(1) {
+    animation: musicBarOne 900ms ease-in-out infinite alternate;
+}
+
+.music-button.is-playing .music-bar:nth-child(2) {
+    animation: musicBarTwo 700ms ease-in-out infinite alternate;
+}
+
+.music-button.is-playing .music-bar:nth-child(3) {
+    animation: musicBarThree 1s ease-in-out infinite alternate;
+}
+
+@keyframes musicBarOne {
+    from {
+        height: 5px;
+    }
+
+    to {
+        height: 14px;
+    }
+}
+
+@keyframes musicBarTwo {
+    from {
+        height: 13px;
+    }
+
+    to {
+        height: 6px;
+    }
+}
+
+@keyframes musicBarThree {
+    from {
+        height: 7px;
+    }
+
+    to {
+        height: 16px;
+    }
+}
+
+.music-button-text {
+    overflow: hidden;
+    max-width: 180px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+body.music-active .background-glow {
+    opacity: 0.24;
+    transition: opacity 1.2s ease;
+}
+
 /* ESCENAS */
 
 #experience {
@@ -575,7 +724,7 @@ button {
         );
 }
 
-/* ENTRADA A GALERÍA */
+/* GALERÍA */
 
 .gallery-intro-scene {
     min-height: 110svh;
@@ -800,7 +949,6 @@ button:focus-visible {
     .hero-orbit {
         top: 25%;
         right: -75%;
-
         width: 145vw;
     }
 
@@ -817,10 +965,6 @@ button:focus-visible {
         font-size: clamp(2.75rem, 13vw, 4.4rem);
     }
 
-    .memory {
-        min-height: 100svh;
-    }
-
     .memory-content {
         padding:
             100px
@@ -832,16 +976,27 @@ button:focus-visible {
         font-size: clamp(2.7rem, 13vw, 4.5rem);
     }
 
-    .memory-text {
-        margin-top: 20px;
+    .music-button {
+        top: calc(14px + var(--safe-top));
+        left: 14px;
+
+        max-width: calc(100vw - 105px);
+        padding: 10px 13px;
+    }
+
+    .music-button-text {
+        max-width: 145px;
+    }
+}
+
+@media (max-width: 390px) {
+    .music-button-text {
+        max-width: 115px;
     }
 }
 
 @media (max-height: 650px) {
-    .scene {
-        min-height: 760px;
-    }
-
+    .scene,
     .memory {
         min-height: 760px;
     }
@@ -858,5 +1013,9 @@ button:focus-visible {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+
+    .music-button.is-playing .music-bar {
+        animation: none;
     }
 }

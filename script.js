@@ -6,7 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const restartButton = document.getElementById("restartButton");
     const progressBar = document.getElementById("progressBar");
 
-    const videos = document.querySelectorAll(".memory-video-element");
+    const musicButton = document.getElementById("musicButton");
+    const musicButtonText = document.getElementById("musicButtonText");
+    const backgroundMusic = document.getElementById("backgroundMusic");
+
+    const videos = document.querySelectorAll(
+        ".memory-video-element"
+    );
 
     const hasGSAP =
         typeof window.gsap !== "undefined" &&
@@ -14,6 +20,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let introFinished = false;
     let introTimeline = null;
+    let musicIsPlaying = false;
+    let musicFadeAnimation = null;
+
+    const showMusicButton = () => {
+        if (!musicButton) {
+            return;
+        }
+
+        musicButton.classList.add("is-visible");
+
+        if (hasGSAP) {
+            gsap.fromTo(
+                musicButton,
+                {
+                    autoAlpha: 0,
+                    y: -12
+                },
+                {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out"
+                }
+            );
+        }
+    };
 
     const finishIntro = () => {
         if (introFinished) {
@@ -25,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!hasGSAP) {
             intro.remove();
+            showMusicButton();
             return;
         }
 
@@ -41,6 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     top: 0,
                     behavior: "auto"
                 });
+
+                showMusicButton();
             }
         });
     };
@@ -167,6 +202,130 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     };
 
+    const stopMusicFade = () => {
+        if (!musicFadeAnimation) {
+            return;
+        }
+
+        cancelAnimationFrame(musicFadeAnimation);
+        musicFadeAnimation = null;
+    };
+
+    const fadeMusicTo = (
+        targetVolume,
+        duration = 1000,
+        pauseAtEnd = false
+    ) => {
+        stopMusicFade();
+
+        const startingVolume = backgroundMusic.volume;
+        const volumeDifference = targetVolume - startingVolume;
+        const startingTime = performance.now();
+
+        const updateVolume = (currentTime) => {
+            const elapsedTime = currentTime - startingTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+            backgroundMusic.volume = Math.min(
+                Math.max(
+                    startingVolume +
+                    volumeDifference * easedProgress,
+                    0
+                ),
+                1
+            );
+
+            if (progress < 1) {
+                musicFadeAnimation =
+                    requestAnimationFrame(updateVolume);
+                return;
+            }
+
+            musicFadeAnimation = null;
+
+            if (pauseAtEnd) {
+                backgroundMusic.pause();
+            }
+        };
+
+        musicFadeAnimation =
+            requestAnimationFrame(updateVolume);
+    };
+
+    const updateMusicButton = (isPlaying) => {
+        musicIsPlaying = isPlaying;
+
+        musicButton.classList.toggle(
+            "is-playing",
+            isPlaying
+        );
+
+        musicButton.setAttribute(
+            "aria-pressed",
+            String(isPlaying)
+        );
+
+        musicButton.setAttribute(
+            "aria-label",
+            isPlaying
+                ? "Pausar música"
+                : "Reproducir música"
+        );
+
+        musicButtonText.textContent =
+            isPlaying
+                ? "Pausar música"
+                : "Escuchar con música";
+
+        document.body.classList.toggle(
+            "music-active",
+            isPlaying
+        );
+    };
+
+    const playMusic = async () => {
+        try {
+            stopMusicFade();
+            backgroundMusic.volume = 0;
+
+            await backgroundMusic.play();
+
+            updateMusicButton(true);
+            fadeMusicTo(0.24, 1800);
+        } catch (error) {
+            updateMusicButton(false);
+            musicButtonText.textContent = "Toca otra vez";
+        }
+    };
+
+    const pauseMusic = () => {
+        updateMusicButton(false);
+        fadeMusicTo(0, 700, true);
+    };
+
+    const toggleMusic = () => {
+        if (musicIsPlaying) {
+            pauseMusic();
+        } else {
+            playMusic();
+        }
+    };
+
+    musicButton.addEventListener(
+        "click",
+        toggleMusic
+    );
+
+    backgroundMusic.addEventListener(
+        "error",
+        () => {
+            updateMusicButton(false);
+            musicButtonText.textContent =
+                "No se encontró la canción";
+        }
+    );
+
     const createScrollAnimations = () => {
         if (!hasGSAP) {
             return;
@@ -174,27 +333,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.utils.toArray(".reveal").forEach((element) => {
-            gsap.fromTo(
-                element,
-                {
-                    autoAlpha: 0,
-                    y: 52
-                },
-                {
-                    autoAlpha: 1,
-                    y: 0,
-                    duration: 1.15,
-                    ease: "power3.out",
+        gsap.utils.toArray(".reveal").forEach(
+            (element) => {
+                gsap.fromTo(
+                    element,
+                    {
+                        autoAlpha: 0,
+                        y: 52
+                    },
+                    {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: 1.15,
+                        ease: "power3.out",
 
-                    scrollTrigger: {
-                        trigger: element,
-                        start: "top 84%",
-                        once: true
+                        scrollTrigger: {
+                            trigger: element,
+                            start: "top 84%",
+                            once: true
+                        }
                     }
-                }
-            );
-        });
+                );
+            }
+        );
 
         gsap.to(".glow-one", {
             xPercent: 28,
@@ -246,51 +407,37 @@ document.addEventListener("DOMContentLoaded", () => {
             ease: "sine.inOut"
         });
 
-        gsap.utils.toArray(".memory").forEach((memory) => {
-            const media = memory.querySelector(
-                ".memory-media img, .memory-media video"
-            );
+        gsap.utils.toArray(".memory").forEach(
+            (memory) => {
+                const media = memory.querySelector(
+                    ".memory-media img, .memory-media video"
+                );
 
-            if (!media) {
-                return;
+                if (!media) {
+                    return;
+                }
+
+                gsap.fromTo(
+                    media,
+                    {
+                        scale: 1.12,
+                        yPercent: -4
+                    },
+                    {
+                        scale: 1,
+                        yPercent: 4,
+                        ease: "none",
+
+                        scrollTrigger: {
+                            trigger: memory,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: 1.2
+                        }
+                    }
+                );
             }
-
-            gsap.fromTo(
-                media,
-                {
-                    scale: 1.12
-                },
-                {
-                    scale: 1,
-                    ease: "none",
-
-                    scrollTrigger: {
-                        trigger: memory,
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: 1.2
-                    }
-                }
-            );
-
-            gsap.fromTo(
-                media,
-                {
-                    yPercent: -4
-                },
-                {
-                    yPercent: 4,
-                    ease: "none",
-
-                    scrollTrigger: {
-                        trigger: memory,
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: 1.4
-                    }
-                }
-            );
-        });
+        );
     };
 
     const createVideoObservers = () => {
@@ -304,14 +451,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const video = entry.target;
 
                     if (entry.isIntersecting) {
-                        const playPromise = video.play();
-
-                        if (playPromise !== undefined) {
-                            playPromise.catch(() => {
-                                // Safari puede impedirlo si el video
-                                // no está correctamente silenciado.
-                            });
-                        }
+                        video.play().catch(() => {
+                            // Safari puede impedir la reproducción.
+                        });
                     } else {
                         video.pause();
                     }
@@ -329,7 +471,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const updateProgressBar = () => {
         const scrollableHeight =
-            document.documentElement.scrollHeight - window.innerHeight;
+            document.documentElement.scrollHeight -
+            window.innerHeight;
 
         const percentage =
             scrollableHeight > 0
@@ -358,13 +501,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    skipIntroButton.addEventListener("click", () => {
-        if (introTimeline) {
-            introTimeline.kill();
-        }
+    skipIntroButton.addEventListener(
+        "click",
+        () => {
+            if (introTimeline) {
+                introTimeline.kill();
+            }
 
-        finishIntro();
-    });
+            finishIntro();
+        }
+    );
 
     restartButton.addEventListener(
         "click",
