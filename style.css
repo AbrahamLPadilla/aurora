@@ -684,6 +684,177 @@ body.music-active .background-glow {
     line-height: 1.75;
 }
 
+/* NUEVO CAPÍTULO */
+
+.water-scene,
+.thoughts-scene,
+.chapter-two-scene {
+    overflow: hidden;
+}
+
+.water-scene {
+    min-height: 120svh;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(2, 4, 10, 0.15),
+            rgba(3, 29, 57, 0.7) 48%,
+            rgba(2, 4, 10, 0.3)
+        );
+}
+
+.water-content {
+    position: relative;
+    z-index: 3;
+}
+
+.water-light {
+    position: absolute;
+
+    width: 68vw;
+    height: 130%;
+
+    background:
+        linear-gradient(
+            108deg,
+            transparent 28%,
+            rgba(121, 196, 255, 0.12) 49%,
+            transparent 68%
+        );
+
+    filter: blur(15px);
+    transform-origin: top;
+
+    animation: waterLight 8s ease-in-out infinite alternate;
+}
+
+.water-light-one {
+    top: -18%;
+    left: -10%;
+
+    transform: rotate(-8deg);
+}
+
+.water-light-two {
+    top: -25%;
+    right: -20%;
+
+    animation-delay: -3s;
+    transform: rotate(12deg);
+}
+
+.water-ripples {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    display: grid;
+    place-items: center;
+
+    pointer-events: none;
+}
+
+.water-ripples span {
+    position: absolute;
+
+    width: min(72vw, 760px);
+    aspect-ratio: 2.4;
+
+    border: 1px solid rgba(169, 219, 255, 0.18);
+    border-radius: 50%;
+
+    opacity: 0;
+
+    animation: waterRipple 6s ease-out infinite;
+}
+
+.water-ripples span:nth-child(2) {
+    animation-delay: 2s;
+}
+
+.water-ripples span:nth-child(3) {
+    animation-delay: 4s;
+}
+
+.water-emphasis,
+.thought-answer {
+    max-width: 680px;
+    margin-top: 34px;
+
+    color: var(--text-primary);
+
+    font-size: clamp(1.55rem, 3.5vw, 2.4rem);
+    font-weight: 620;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+}
+
+.thoughts-scene {
+    min-height: 112svh;
+}
+
+.thought-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: min(105vw, 1040px);
+    aspect-ratio: 1;
+
+    border: 1px solid rgba(169, 199, 255, 0.1);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 90px rgba(73, 115, 205, 0.08),
+        inset 0 0 90px rgba(73, 115, 205, 0.04);
+
+    transform: translate(-50%, -50%);
+}
+
+.thought-orbit::before,
+.thought-orbit::after {
+    position: absolute;
+    inset: 14%;
+
+    border: 1px solid rgba(169, 199, 255, 0.08);
+    border-radius: inherit;
+
+    content: "";
+}
+
+.thought-orbit::after {
+    inset: 31%;
+}
+
+@keyframes waterLight {
+    from {
+        opacity: 0.42;
+        transform: rotate(-7deg) translateX(-4%);
+    }
+
+    to {
+        opacity: 0.85;
+        transform: rotate(8deg) translateX(8%);
+    }
+}
+
+@keyframes waterRipple {
+    0% {
+        opacity: 0;
+        transform: scale(0.35);
+    }
+
+    18% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.45);
+    }
+}
+
 .scroll-hint {
     position: absolute;
     bottom: calc(28px + var(--safe-bottom));
@@ -722,6 +893,19 @@ body.music-active .background-glow {
 .gallery-intro-scene {
     min-height: 110svh;
     text-align: center;
+}
+
+.chapter-two-scene {
+    min-height: 110svh;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 48%,
+            rgba(126, 92, 50, 0.18),
+            transparent 38%
+        );
 }
 
 .gallery-intro-content,
@@ -781,6 +965,10 @@ body.music-active .background-glow {
     will-change: transform;
 }
 
+.memory-focus-top .memory-media img {
+    object-position: center 24%;
+}
+
 .memory-overlay {
     position: absolute;
     inset: 0;
@@ -806,6 +994,39 @@ body.music-active .background-glow {
         120px
         28px
         calc(80px + var(--safe-bottom));
+}
+
+.rain-lines {
+    position: absolute;
+    inset: -20%;
+    z-index: 2;
+
+    pointer-events: none;
+
+    background-image:
+        repeating-linear-gradient(
+            112deg,
+            transparent 0,
+            transparent 38px,
+            rgba(210, 230, 255, 0.13) 39px,
+            transparent 41px,
+            transparent 75px
+        );
+
+    opacity: 0.65;
+    transform: translate3d(0, -8%, 0);
+
+    animation: rainfall 1.35s linear infinite;
+}
+
+.rain-memory .memory-content {
+    z-index: 3;
+}
+
+@keyframes rainfall {
+    to {
+        transform: translate3d(-5%, 18%, 0);
+    }
 }
 
 .memory-kicker {
@@ -1020,6 +1241,19 @@ a:focus-visible {
 
     .scene-title {
         font-size: clamp(2.75rem, 13vw, 4.4rem);
+    }
+
+    .water-scene,
+    .thoughts-scene {
+        min-height: 118svh;
+    }
+
+    .water-ripples span {
+        width: 118vw;
+    }
+
+    .thought-orbit {
+        width: 165vw;
     }
 
     .memory-content {
