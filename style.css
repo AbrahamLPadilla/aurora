@@ -777,6 +777,106 @@ body.music-active .background-glow {
     animation-delay: 4s;
 }
 
+.swim-together {
+    position: absolute;
+    inset: 6% 0;
+    z-index: 2;
+
+    width: min(78vw, 920px);
+    margin: auto;
+
+    overflow: hidden;
+    pointer-events: none;
+
+    opacity: 0.58;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 18%,
+            black 82%,
+            transparent
+        );
+}
+
+.pool-lane {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    width: 1px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(169, 219, 255, 0.24) 14%,
+            rgba(169, 219, 255, 0.24) 86%,
+            transparent
+        );
+}
+
+.pool-lane-one {
+    left: 42%;
+}
+
+.pool-lane-two {
+    left: 58%;
+}
+
+.swimmer-light {
+    position: absolute;
+    bottom: 5%;
+
+    width: 13px;
+    height: 22px;
+
+    border-radius: 50%;
+
+    background: rgba(225, 243, 255, 0.92);
+
+    box-shadow:
+        0 0 18px rgba(144, 211, 255, 0.95),
+        0 0 50px rgba(74, 162, 255, 0.7);
+
+    animation: swimTogether 9s ease-in-out infinite;
+}
+
+.swimmer-light::after {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+
+    width: 55px;
+    height: 145px;
+
+    border: 1px solid rgba(201, 232, 255, 0.26);
+    border-top: 0;
+    border-radius: 0 0 50% 50%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(128, 202, 255, 0.2),
+            transparent 72%
+        );
+
+    content: "";
+    filter: blur(2px);
+    transform: translateX(-50%);
+}
+
+.swimmer-one {
+    left: calc(42% - 6px);
+}
+
+.swimmer-two {
+    left: calc(58% - 6px);
+
+    animation-delay: -0.7s;
+}
+
 .water-emphasis,
 .thought-answer {
     max-width: 680px;
@@ -852,6 +952,30 @@ body.music-active .background-glow {
     100% {
         opacity: 0;
         transform: scale(1.45);
+    }
+}
+
+@keyframes swimTogether {
+    0% {
+        opacity: 0;
+        transform: translate3d(-3px, 0, 0) rotate(-4deg);
+    }
+
+    12% {
+        opacity: 0.95;
+    }
+
+    50% {
+        transform: translate3d(4px, -37svh, 0) rotate(4deg);
+    }
+
+    88% {
+        opacity: 0.95;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(-2px, -78svh, 0) rotate(-3deg);
     }
 }
 
@@ -963,10 +1087,6 @@ body.music-active .background-glow {
 
     transform: scale(1.08);
     will-change: transform;
-}
-
-.memory-focus-top .memory-media img {
-    object-position: center 24%;
 }
 
 .memory-overlay {
@@ -1250,6 +1370,11 @@ a:focus-visible {
 
     .water-ripples span {
         width: 118vw;
+    }
+
+    .swim-together {
+        width: 132vw;
+        opacity: 0.5;
     }
 
     .thought-orbit {
