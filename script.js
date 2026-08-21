@@ -524,11 +524,11 @@ document.addEventListener("DOMContentLoaded", () => {
             .toArray(".memory")
             .forEach((memory) => {
                 const media =
-                    memory.querySelector(
+                    memory.querySelectorAll(
                         ".memory-media img, .memory-media video"
                     );
 
-                if (!media) {
+                if (!media.length) {
                     return;
                 }
 
