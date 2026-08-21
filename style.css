@@ -1525,7 +1525,7 @@ body.music-active .background-glow {
 
 .memory-content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
 
     width: min(100%, 980px);
     margin: 0 auto;
@@ -1534,6 +1534,36 @@ body.music-active .background-glow {
         120px
         28px
         calc(80px + var(--safe-bottom));
+}
+
+.cinema-memory::after,
+.near-memory::after,
+.journey-memory::after,
+.closing-memory::after {
+    position: absolute;
+    z-index: 2;
+
+    content: "";
+    pointer-events: none;
+    will-change: opacity, transform;
+}
+
+.cinema-memory::after {
+    inset: -18%;
+
+    background:
+        linear-gradient(
+            108deg,
+            transparent 30%,
+            rgba(255, 231, 196, 0.12) 47%,
+            rgba(192, 215, 255, 0.07) 52%,
+            transparent 69%
+        );
+
+    filter: blur(18px);
+    mix-blend-mode: screen;
+
+    animation: projectorLight 6.5s ease-in-out infinite alternate;
 }
 
 .rain-lines {
@@ -1547,25 +1577,125 @@ body.music-active .background-glow {
         repeating-linear-gradient(
             112deg,
             transparent 0,
-            transparent 38px,
-            rgba(210, 230, 255, 0.13) 39px,
-            transparent 41px,
-            transparent 75px
+            transparent 47px,
+            rgba(210, 230, 255, 0.09) 48px,
+            transparent 49.5px,
+            transparent 92px
         );
 
-    opacity: 0.65;
+    opacity: 0.42;
     transform: translate3d(0, -8%, 0);
 
-    animation: rainfall 1.35s linear infinite;
+    animation: rainfall 2.15s linear infinite;
 }
 
-.rain-memory .memory-content {
-    z-index: 3;
+.near-memory::after {
+    inset: -8%;
+
+    background:
+        radial-gradient(
+            circle at 68% 31%,
+            rgba(255, 190, 137, 0.15),
+            rgba(214, 141, 104, 0.055) 24%,
+            transparent 48%
+        );
+
+    filter: blur(5px);
+    mix-blend-mode: screen;
+
+    animation: warmMemoryGlow 7s ease-in-out infinite alternate;
+}
+
+.journey-memory::after {
+    inset: -28%;
+
+    background:
+        linear-gradient(
+            112deg,
+            transparent 35%,
+            rgba(184, 215, 255, 0.1) 47%,
+            rgba(255, 223, 181, 0.07) 52%,
+            transparent 64%
+        );
+
+    filter: blur(20px);
+    mix-blend-mode: screen;
+
+    animation: roadLight 8.5s ease-in-out infinite;
+}
+
+.closing-memory::after {
+    inset: -6%;
+
+    background:
+        radial-gradient(
+            circle at 54% 34%,
+            rgba(255, 210, 143, 0.13),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 50% 38%,
+            rgba(146, 185, 255, 0.1),
+            transparent 48%
+        );
+
+    mix-blend-mode: screen;
+
+    animation: finalMemoryHalo 7.5s ease-in-out infinite alternate;
 }
 
 @keyframes rainfall {
     to {
         transform: translate3d(-5%, 18%, 0);
+    }
+}
+
+@keyframes projectorLight {
+    from {
+        opacity: 0.32;
+        transform: translateX(-5%) rotate(-1deg);
+    }
+
+    to {
+        opacity: 0.68;
+        transform: translateX(5%) rotate(1deg);
+    }
+}
+
+@keyframes warmMemoryGlow {
+    from {
+        opacity: 0.4;
+        transform: scale(0.97);
+    }
+
+    to {
+        opacity: 0.75;
+        transform: scale(1.04);
+    }
+}
+
+@keyframes roadLight {
+    0%,
+    100% {
+        opacity: 0.18;
+        transform: translateX(-10%) rotate(-2deg);
+    }
+
+    50% {
+        opacity: 0.62;
+        transform: translateX(10%) rotate(2deg);
+    }
+}
+
+@keyframes finalMemoryHalo {
+    from {
+        opacity: 0.38;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 0.72;
+        transform: scale(1.04);
     }
 }
 
