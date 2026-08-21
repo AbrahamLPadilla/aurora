@@ -1089,6 +1089,24 @@ body.music-active .background-glow {
     will-change: transform;
 }
 
+.memory-duo-media {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+
+    background: #000;
+}
+
+.memory-duo-media img {
+    min-width: 0;
+
+    object-position: center;
+}
+
+.memory-duo-media img:first-child {
+    object-position: 58% center;
+}
+
 .memory-overlay {
     position: absolute;
     inset: 0;
