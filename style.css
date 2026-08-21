@@ -1555,12 +1555,12 @@ body.music-active .background-glow {
         linear-gradient(
             108deg,
             transparent 30%,
-            rgba(255, 231, 196, 0.12) 47%,
-            rgba(192, 215, 255, 0.07) 52%,
+            rgba(255, 231, 196, 0.26) 47%,
+            rgba(192, 215, 255, 0.15) 52%,
             transparent 69%
         );
 
-    filter: blur(18px);
+    filter: blur(13px);
     mix-blend-mode: screen;
 
     animation: projectorLight 6.5s ease-in-out infinite alternate;
@@ -1578,15 +1578,15 @@ body.music-active .background-glow {
             112deg,
             transparent 0,
             transparent 47px,
-            rgba(210, 230, 255, 0.09) 48px,
+            rgba(210, 230, 255, 0.14) 48px,
             transparent 49.5px,
             transparent 92px
         );
 
-    opacity: 0.42;
+    opacity: 0.55;
     transform: translate3d(0, -8%, 0);
 
-    animation: rainfall 2.15s linear infinite;
+    animation: rainfall 1.85s linear infinite;
 }
 
 .near-memory::after {
@@ -1595,8 +1595,8 @@ body.music-active .background-glow {
     background:
         radial-gradient(
             circle at 68% 31%,
-            rgba(255, 190, 137, 0.15),
-            rgba(214, 141, 104, 0.055) 24%,
+            rgba(255, 190, 137, 0.3),
+            rgba(214, 141, 104, 0.11) 24%,
             transparent 48%
         );
 
@@ -1613,12 +1613,12 @@ body.music-active .background-glow {
         linear-gradient(
             112deg,
             transparent 35%,
-            rgba(184, 215, 255, 0.1) 47%,
-            rgba(255, 223, 181, 0.07) 52%,
+            rgba(184, 215, 255, 0.22) 47%,
+            rgba(255, 223, 181, 0.13) 52%,
             transparent 64%
         );
 
-    filter: blur(20px);
+    filter: blur(14px);
     mix-blend-mode: screen;
 
     animation: roadLight 8.5s ease-in-out infinite;
@@ -1630,12 +1630,12 @@ body.music-active .background-glow {
     background:
         radial-gradient(
             circle at 54% 34%,
-            rgba(255, 210, 143, 0.13),
+            rgba(255, 210, 143, 0.25),
             transparent 28%
         ),
         radial-gradient(
             circle at 50% 38%,
-            rgba(146, 185, 255, 0.1),
+            rgba(146, 185, 255, 0.18),
             transparent 48%
         );
 
@@ -1652,24 +1652,24 @@ body.music-active .background-glow {
 
 @keyframes projectorLight {
     from {
-        opacity: 0.32;
-        transform: translateX(-5%) rotate(-1deg);
+        opacity: 0.52;
+        transform: translateX(-8%) rotate(-1.5deg);
     }
 
     to {
-        opacity: 0.68;
-        transform: translateX(5%) rotate(1deg);
+        opacity: 0.92;
+        transform: translateX(8%) rotate(1.5deg);
     }
 }
 
 @keyframes warmMemoryGlow {
     from {
-        opacity: 0.4;
+        opacity: 0.52;
         transform: scale(0.97);
     }
 
     to {
-        opacity: 0.75;
+        opacity: 0.9;
         transform: scale(1.04);
     }
 }
@@ -1677,24 +1677,24 @@ body.music-active .background-glow {
 @keyframes roadLight {
     0%,
     100% {
-        opacity: 0.18;
-        transform: translateX(-10%) rotate(-2deg);
+        opacity: 0.32;
+        transform: translateX(-14%) rotate(-2deg);
     }
 
     50% {
-        opacity: 0.62;
-        transform: translateX(10%) rotate(2deg);
+        opacity: 0.86;
+        transform: translateX(14%) rotate(2deg);
     }
 }
 
 @keyframes finalMemoryHalo {
     from {
-        opacity: 0.38;
+        opacity: 0.5;
         transform: scale(0.96);
     }
 
     to {
-        opacity: 0.72;
+        opacity: 0.88;
         transform: scale(1.04);
     }
 }
