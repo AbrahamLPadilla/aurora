@@ -704,7 +704,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (musicIsPlaying) {
             fadeMusicTo(
-                0.06,
+                0.24,
                 900
             );
         }
